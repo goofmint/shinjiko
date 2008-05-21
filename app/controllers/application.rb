@@ -3,6 +3,10 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  include AuthenticatedSystem
+  # If you want "remember me" functionality, add this before_filter to Application Controller
+  before_filter :login_from_cookie
+  init_gettext "shinjiko"
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

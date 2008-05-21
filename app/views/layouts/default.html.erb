@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Code Review</title>
+  <%= stylesheet_link_tag "styles" %>
+  <%= javascript_include_tag "script" %>
+</head>
+<body>
+<div align="right">
+<div style="float:left; font-weight:bold"><i>Rietveld</i> Code Review Tool</div>
+
+<% if logged_in? %>
+  <b><%= "%{email} (%{login})" % {:email => self.current_user.email, :login => self.current_user.login} %></b>
+  |
+  <span style="color:red">Please choose your nickname with</span>
+  <a class="novisit" href="/settings">Settings</a>
+|
+<% end %>
+<a class="novisit" target="_blank"
+   href="http://code.google.com/p/rietveld/wiki/CodeReviewHelp">Help</a>
+|
+<a class="novisit" target="_blank"
+   href="http://code.google.com/p/rietveld/issues/list">Bug tracker</a>
+|
+<a class="novisit" target="_blank"
+   href="http://groups.google.com/group/codereview-discuss">Discussion group</a>
+|
+<% if logged_in? %>
+  <%= link_to _("Sign out"), :controller => :account, :action => :logout %>
+<% else %>
+  <%= link_to _("Sign in"), :controller => :account, :action => :login %>
+<% end %>
+</div>
+<hr />
+<div class="counter">(xx)</div>
+<div>
+
+<%= link_to _("Create Issue"), {:controller => :issue, :action => :new}, :class => 'novisit' %>
+|
+<%= link_to _("My Issues"), {:controller => :issue, :action => :index}, :class => 'novisit' %>
+|
+<%= link_to _("Recent Issues"), {:controller => :issue, :action => :all}, :class => 'novisit' %>
+|
+<%= link_to _("Repositories"), {:controller => :issue, :action => :repos}, :class => 'novisit' %>
+
+</div>
+<hr />
+
+<div>
+<%= yield %>
+
+</div>
+
+<p />
+<%= link_to image_tag("rails.png", :border => 0), "http://www.rubyonrails.org/", :alt => "Powered by Ruby on Rails" %>
+
+</body>
+</html>

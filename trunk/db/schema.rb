@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 5) do
+ActiveRecord::Schema.define(:version => 8) do
+
+  create_table "apis", :force => true do |t|
+    t.string   "session"
+    t.string   "cookie"
+    t.integer  "user_id"
+    t.datetime "expired_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "branches", :force => true do |t|
     t.integer  "repository_id"
@@ -22,13 +31,32 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "issues", :force => true do |t|
     t.string   "subject"
-    t.string   "baseuri"
+    t.string   "base"
     t.text     "reviewer_string"
     t.text     "description"
     t.integer  "comment_count"
     t.integer  "user_id"
     t.integer  "closed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "patches", :force => true do |t|
+    t.integer  "patchset_id"
+    t.integer  "parent_id"
+    t.text     "text"
+    t.string   "filename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "patchsets", :force => true do |t|
+    t.integer  "issue_id"
     t.integer  "base_id"
+    t.integer  "user_id"
+    t.integer  "parrent_id"
+    t.text     "file"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

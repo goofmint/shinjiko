@@ -3,7 +3,7 @@ class CreateIssues < ActiveRecord::Migration
     create_table :issues do |t|
       t.string :subject, :base
       t.text   :reviewer_string, :description
-      t.integer :comment_count, :user_id, :closed
+      t.integer :user_id, :closed
       t.timestamps
     end
   end

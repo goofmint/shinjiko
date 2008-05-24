@@ -1,0 +1,169 @@
+<h2>Issue: <%=h @issue.subject %> </h2>
+
+
+<div style="float: left; padding-right: 1em">
+<div>
+  <i>Created:</i> <%=h timeago @issue.created_at %> by
+  <b><%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %></b>;
+  <i>Last updated:</i> <%=h timeago @issue.updated_at %>
+</div>
+<div><i>SVN Base:</i> <%=h @issue.base %></div>
+
+<div><i>Reviewers:</i> <%=h @issue.reviewer_string %></div>
+<div>
+  <%= link_to _("Edit Issue"), {:controller => :issue, :action => :edit, :id => @issue.id}, :class => 'novisit' %>
+  
+  |
+  
+  <%= link_to _("Publish+Mail Comments"), {:controller => :issue, :action => :publish, :id => @issue.id}, :class => 'novisit' %>
+  
+  |
+  <%= link_to _("<b>Start Review</b>"), {:controller => :issue, :action => :diff, :id => @issue.id, :psid => @issue.patchsets.first.patches.first.id}, :class => 'novisit' %>
+</div>
+</div>
+
+<% if @issue.description %>
+<div style="float: left"><i>Description:</i>
+<pre style="background-color: #e5ecf9; margin-top: 0; padding: 3px; overflow: auto">
+<%=h @issue.description %>
+</pre>
+</div>
+<% end %>
+<div style="clear:both"></div>
+
+<% i = 0 %>
+<% patchsets = @issue.patchsets %>
+<% @issue.patchsets.each {|ps| %>
+  <% i += 1 %>
+  <h3>
+    <a id="ps-<%= ps.id %>-pointer"
+       href="javascript:M_toggleSection('ps-<%= ps.id %>')"
+       class="toggled-section">
+      Patch Set <%= i %>:<%=h ps.message %>
+    </a>
+  </h3>
+
+  <div>
+    <i>Total comments:</i> <%= ps.comment_count.to_i %>
+    <div id="ps-<%= ps.id %>" style="display:none"></div>
+    <i>Created:</i> <%=h timeago ps.created_at %>
+  </div>
+  <div>
+    <%= link_to _("Download raw patch set"), :controller => :issue, :action => :download, :id => @issue.id, :psid => ps.id %>
+  </div>
+  <table id="queues">
+    <tr>
+      <th>Raw unified diffs</th>
+      <th colspan="2">Stats</th>
+      <th>Side-by-side diffs with inline comments</th>
+    </tr>
+    <% ps.patches.each {|p| %>
+      <tr>
+	<td>
+	  <%= link_to p.filename,{:controller => :issue, :action => :patch, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
+	</td>
+	<td>1 chunk</td>
+	<td><%= p.text.split(/\r\n|\r|\n/).size %> lines</td>
+	<td>
+	  <b>
+	      <%= link_to _("%{count} comments") % {:count => p.comment_count.to_i}, {:controller => :issue, :action => :diff, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
+	  </b>
+	</td>
+	<td>
+	  <% if patchsets.size > 1 %>
+	  <% j = 0 %>
+	    <% patchsets.each {|tmp| 
+	       j += 1
+	       next if tmp.id == ps.id
+	    %>
+	      <% link_to _("delta from patch set %{set}") % {:set => j}, :controller => :issue, :action => :diff2, :id => @issue.id, :psid => "#{ps.id}:#{tmp.id}", :pid => p.id %> 
+	    <% } %>
+	  <% end %>
+	</td>
+      </tr>
+    <% } %>
+  </table>
+</div>
+
+<% } %>
+
+<h3>
+<a id="add-pointer"
+   href="javascript:M_toggleSection('add')"
+   class="toggled-section">
+<%= _("Add Another Patch Set") %></a>
+</h3>
+
+<% form_tag({:controller => :issue, :action => :add, :id => @issue.id}, :multipart => true, :method => "post", :id => "add", :style => "display:none") do %>
+  <table>
+    <tr>
+      <th>
+	<label for="id_message">Message:</label>
+      </th>
+      <td>
+	<%= text_field :patchset, :message, :size => 60, :maxlength => 100 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_data">Data:</label>
+      </th>
+      <td>
+	<%= file_field :patchset, :data %>
+      </td>
+    </tr>
+    <tr>
+      <th><label for="id_url">Url:</label></th>
+      <td>
+	<%= text_field :patchset, :url, :size => 60, :maxlength => 2083 %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<%= submit_tag _("Add Patch Set") %>
+      </td>
+      <td>
+	You can also add a patch set to this issue using
+	<code>upload.py -i <%= @issue.id %></code>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+
+<h2>Messages</h2>
+
+<a href="javascript:M_showAllComments('cl', 10)">
+Expand All Comments</a>
+|
+<a href="javascript:M_hideAllComments('cl', 10)">
+Collapse All Comments</a>
+
+<% @issue.messages.each {|m|%>
+  <div class="comment_title" onclick="M_switchChangelistComment(<%= m.id %>)">
+    From: <%= (logged_in? && m.user_id == self.current_user.id) ? "me" : m.user.login %>
+    <span id="cl-preview-<%= m.id %>" class="extra">
+      <%= timeago m.created_at %>
+    </span>
+  </div>
+  <div id="cl-comment-<%= m.id %>" style="display: none;">
+    <div>Subject: <%=h m.subject %></div>
+    <div>To: <%= m.reviewer_string %></div>
+    <div>Date: <%= m.created_at %></div>
+    <pre><%= m.message %></pre>
+  </div>
+<% } %>
+
+
+<div style="border-top: thin solid;"></div>
+
+<a href="javascript:M_showAllComments('cl', 10)">
+Expand All Comments</a>
+|
+<a href="javascript:M_hideAllComments('cl', 10)">
+Collapse All Comments</a>
+
+<script language="JavaScript" type="text/javascript"><!--
+document.onkeypress = function(evt) { return M_changelistKeyPress(evt); }
+// -->
+</script>

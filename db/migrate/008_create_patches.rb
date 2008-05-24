@@ -1,7 +1,7 @@
 class CreatePatches < ActiveRecord::Migration
   def self.up
     create_table :patches do |t|
-      t.integer :patchset_id, :parent_id
+      t.integer :patchset_id, :parent_id, :issue_id, :comment_count
       t.text    :text
       t.string  :filename
       t.timestamps

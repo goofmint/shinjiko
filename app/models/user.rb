@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   belongs_to :api
   has_many :issues
+  has_many :messages
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)

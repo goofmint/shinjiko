@@ -3,4 +3,8 @@ class IssueController < ApplicationController
   layout 'default'
   def index
   end
+  
+  def view
+    @issue = Issue.find params[:id]
+  end
 end

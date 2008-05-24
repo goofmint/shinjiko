@@ -1,5 +1,4 @@
 class Patchset < ActiveRecord::Base
-  validates_presence_of :data, :if => :no_url?, :message => 'You must specify either a URL or upload a file but not both'
   before_save :parsepatch
   has_many :patches
   has_many :childs, :class_name => 'Patch', :foreign_key => :parent_id
@@ -8,8 +7,11 @@ class Patchset < ActiveRecord::Base
   belongs_to :parrent, :class_name => 'Issue', :foreign_key => :parrent_id
   
   def validate
-    if self.data && self.url
+    if @data && self.url
       errors.add :data, _('You must specify either a URL or upload a file but not both')
+    end
+    unless @data || self.url
+      errors.add :data, _('You must specify a URL or upload a file')
     end
     if self.url
       url = URI.parse(self.url)
@@ -33,6 +35,7 @@ class Patchset < ActiveRecord::Base
   
   def data=(d)
     @data = d
+    self.file = d
   end
   
   def parsepatch
@@ -43,7 +46,7 @@ class Patchset < ActiveRecord::Base
     @data.split(/\r\n|\r|\n/).each { |l|
       if l =~ /^Index:/
         if filename && lines.size > 0
-          self.patches << Patch.new(:patchset => self, :text => lines.join("\n"), :filename => filename, :parent => self)
+          self.patches << Patch.new(:patchset => self, :text => lines.join("\n"), :filename => filename, :parent => self, :issue => self.issue)
         end
         filename = l.split(":", 2)[1].strip
         lines = [l]
@@ -52,12 +55,9 @@ class Patchset < ActiveRecord::Base
       lines << l
     }
     if filename && lines.size > 0
-      self.patches << Patch.new(:patchset => self, :text => lines.join("\n"), :filename => filename, :parent => self)
+      self.patches << Patch.new(:patchset => self, :text => lines.join("\n"), :filename => filename, :parent => self, :issue => self.issue)
     end
+    logger.debug "Patches? #{self.patches}"
   end
   
-  private
-  def no_url?
-    !self.url
-  end
 end

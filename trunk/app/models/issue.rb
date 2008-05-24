@@ -7,6 +7,8 @@ class Issue < ActiveRecord::Base
   has_many :reviewers
   belongs_to :user
   has_many :patchsets
+  has_many :patches
+  has_many :messages
   belongs_to :branch
   
   def validate

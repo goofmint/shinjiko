@@ -1,12 +1,10 @@
 class UploadController < ApplicationController
   def index
-    logger.debug "#{params[:data].read}"
     # new or update
     if params[:issue]
       # update
     else
       # new
-      logger.debug "Cookie::#{cookies}"
       api = Api.find :first, :conditions => ['cookie = ?', cookies[:ACSID]], :include => :user
       return render(:status => 401, :text => 'Authorization expired.') unless api && api.user
       user = api.user
@@ -44,17 +42,15 @@ class UploadController < ApplicationController
       #  - parrent => issue
       data = nil
       data = params[:data].read if params[:data]
-      patchset = Patchset.new :issue => issue, :data => data, :url => params[:base], :owner => user, :parrent => issue
+      patchset = Patchset.new :issue => issue, :data => data, :url => params[:url], :owner => user, :parrent => issue
       patchset.save
       unless patchset.save
         patchset.errors.each{ |a, m|
           logger.debug " Patchset Error::#{a} => #{m}"
         }
       end
-      # Parse patchset
-      # 
       # End
-      return render :status => 201, :text => url_for(:controller => :issue, :action => :view, :id => issue.id, :only_path => false)
+      return render :text => url_for(:controller => :issue, :action => :view, :id => issue.id, :only_path => false)
     end
   end
 end

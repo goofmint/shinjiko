@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 10) do
 
   create_table "apis", :force => true do |t|
     t.string   "session"
@@ -29,13 +29,27 @@ ActiveRecord::Schema.define(:version => 9) do
     t.datetime "updated_at"
   end
 
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "issue_id"
+    t.integer  "patchset_id"
+    t.integer  "patch_id"
+    t.integer  "line"
+    t.integer  "draft"
+    t.integer  "parrent_id"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "issues", :force => true do |t|
     t.string   "subject"
-    t.string   "base"
     t.text     "reviewer_string"
     t.text     "description"
+    t.text     "base"
     t.integer  "user_id"
     t.integer  "closed"
+    t.integer  "comment_count"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,12 +78,13 @@ ActiveRecord::Schema.define(:version => 9) do
 
   create_table "patchsets", :force => true do |t|
     t.integer  "issue_id"
-    t.integer  "base_id"
+    t.integer  "branch_id"
     t.integer  "user_id"
     t.integer  "parrent_id"
     t.integer  "comment_count"
     t.text     "file"
     t.text     "message"
+    t.text     "base"
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"

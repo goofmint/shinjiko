@@ -1,0 +1,39 @@
+<h2>Create New Issue</h2>
+<%= error_messages_for :issue, :patchset %>
+<% form_tag({:controller => :issue, :action => :new}, :method => :post, :multipart => true) do %>
+<table>
+<tr><th><label for="id_subject">Subject:</label></th><td>
+<%= text_field :issue, :subject, :size => 60 %>
+</td></tr>
+<tr><th><label for="id_description">Description:</label></th><td>
+<%= text_area :issue, :description, :rows => 10, :cols => 60 %>
+</td></tr>
+<tr><th><label for="id_branch">SVN base:</label></th><td>
+<%= select :patchset, :branch_id, Branch.find(:all, :order => 'id').collect{|b| [b.name, b.id]}, {:include_blank => true} %>
+</td></tr>
+<tr><th><label for="id_base">Base:</label></th><td>
+<%= text_field :issue, :base, :size => 60, :maxlength => 1000 %>
+</td></tr>
+<tr><th><label for="id_reviewers">Reviewers:</label></th><td>
+<%= text_field :issue, :reviewer_string, :size => 60 %>
+</td></tr>
+<tr><th><label for="id_data">Data:</label></th><td>
+<%= file_field :patchset, :data %>
+</td></tr>
+<tr><th><label for="id_url">Url:</label></th><td>
+<%= text_field :patchset, :url, :maxlength => 2083, :size => 60 %>
+</td></tr>
+<tr><td>
+    <%= submit_tag _("Create Issue") %>
+</td></tr>
+</table>
+
+<% end %>
+
+<h2>Upload Utility</h2>
+
+<p>Tired of uploading files through this form? 
+Download <a href="/static/upload.py">upload.py</a>, a simple utility
+that will invoke "svn diff" and upload the output for you.
+
+

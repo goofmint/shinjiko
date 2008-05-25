@@ -1,9 +1,9 @@
 class CreateIssues < ActiveRecord::Migration
   def self.up
     create_table :issues do |t|
-      t.string :subject, :base
-      t.text   :reviewer_string, :description
-      t.integer :user_id, :closed
+      t.string :subject
+      t.text   :reviewer_string, :description, :base
+      t.integer :user_id, :closed, :comment_count
       t.timestamps
     end
   end

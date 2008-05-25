@@ -4,19 +4,46 @@
 
 <tr><td colspan="7"><h3>Issues Created by me</h3></td></tr>
 
-
+<% 
+   issues = self.current_user.issues.find(:all, :order => 'updated_at desc')
+   if issues.length == 0 %>
 <tr><td colspan="7"><span class="disabled">(None)</td></tr>
+<% else %>
+<tr align="left">
+  <th>Id</th>
+  <th>Subject</th>
+  <th>Owner</th>
+  <th>Reviewers</th>
 
+  <th>Comments</th>
+  <th>Drafts (mine)</th>
+  <th>Last updated</th>
+</tr>
 
+<% issues.each {|i| %>
+  <% draft = i.comments.count(:conditions => ['draft = 1']) %>
+  <tr <%= draft > 0 ? 'style="color:red"' : '' %>>
+    <td align="right"><div class="subject"><%= i.id %></td>
+    <td><div class="subject">
+	<%= link_to i.subject,{:controller => :issue, :action => :view, :id => i.id}, :class => "noul" %>
+    </div></td>
+    <td><div class="users">me</div></td>
+    <td><div class="users">
+	<%=h i.reviewer_string %>
+    </div></td>
+    <td align="center">
+      <%=h i.comment_count %>
+    </td>
+    <td align="center"><b><%= draft %></b></td>
+    <td><div class="date"><%= timeago i.updated_at %></div></td>
+  </tr>
+<% } %>
+<% end %>
 <tr><td colspan="7"><h3>Issues Reviewable by me</h3></td></tr>
 
-
 <tr><td colspan="7"><span class="disabled">(None)</td></tr>
 
-
-
 <tr><td colspan="7"><h3>Issues Closed Recently</h3></td></tr>
-
 
 <tr><td colspan="7"><span class="disabled">(None)</td></tr>
 

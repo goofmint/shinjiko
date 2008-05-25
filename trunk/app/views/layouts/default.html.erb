@@ -13,7 +13,9 @@
 <% if logged_in? %>
   <b><%= "%{email} (%{login})" % {:email => self.current_user.email, :login => self.current_user.login} %></b>
   |
+  <% unless self.current_user.login %>
   <span style="color:red">Please choose your nickname with</span>
+  <% end %>
   <a class="novisit" href="/settings">Settings</a>
 |
 <% end %>

@@ -5,15 +5,16 @@ class Patchset < ActiveRecord::Base
   belongs_to :issue
   belongs_to :owner, :class_name => 'User', :foreign_key => :user_id
   belongs_to :parrent, :class_name => 'Issue', :foreign_key => :parrent_id
+  has_many :comments
   
   def validate
-    if @data && self.url
+    if @data && self.url != ""
       errors.add :data, _('You must specify either a URL or upload a file but not both')
     end
     unless @data || self.url
       errors.add :data, _('You must specify a URL or upload a file')
     end
-    if self.url
+    if self.url.to_s != ""
       url = URI.parse(self.url)
       response = nil
       unless url.host

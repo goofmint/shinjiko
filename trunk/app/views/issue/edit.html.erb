@@ -1,0 +1,73 @@
+<h2>Edit Issue: <%= @issue.subject %> </h2>
+
+<% form_tag({:controller => :issue, :action => :edit, :id => @issue.id}) do %>
+  <table>
+    <tr>
+      <th>
+	<label for="id_subject">Subject:</label>
+      </th>
+      <td>
+	<%= text_field :issue, :subject, :maxlength => 100, :size => 60 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_description">Description:</label>
+      </th>
+      <td>
+	<%= text_area :issue, :description, :rows => 10, :cols => 60 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_branch">SVN base:</label>
+      </th>
+      <td>
+	<%= select :patchset, :branch_id, Branch.find(:all, :order => 'id').collect{|b| [b.name, b.id]}, {:include_blank => true} %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_base">Base:</label>
+      </th>
+      <td>
+	<%= text_field :issue, :base, :size => 60, :maxlength => 1000 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_reviewers">Reviewers:</label>
+      </th>
+      <td>
+	<%= text_field :issue, :reviewer_string, :size => 60 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_closed">Closed:</label>
+      </th>
+      <td>
+	<%= check_box :issue, :closed %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<%= submit_tag _("Update Issue") %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<p>
+<ul>
+<li>Owner: <%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %>
+<li>Created: <%= @issue.created_at %>
+
+<li>Last updated: <%= @issue.updated_at %>
+</ul>
+</p>
+
+<h2>Delete This Issue</h2>
+<% form_tag(:controller => :issue, :action => :delete, :id => @issue.id) do %>
+<%= submit_tag _("Delete Issue") %>There is no undo!
+<% end %>

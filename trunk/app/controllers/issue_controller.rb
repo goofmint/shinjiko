@@ -23,6 +23,13 @@ class IssueController < ApplicationController
     @issue = @patch.issue
     @patchset = @patch.patchset
     @old, @new = @patch.application_patch
+    @comments = Hash.new
+    user_id = logged_in? ? self.current_user.id : 0
+    Comment.find(:all, :conditions => ['patch_id = ? and (draft = 0 or user_id = ?)', params[:pid], user_id], :order => 'comments.id').each { |c|
+      @comments["#{c.line}#{c.side}"] = [] unless @comments["#{c.line}#{c.side}"]
+      @comments["#{c.line}#{c.side}"] << c
+    }
+    
     return render(:status => 403, :text => _("Invalid file type.")) unless @old
   end
   
@@ -30,14 +37,19 @@ class IssueController < ApplicationController
     return render(:status => 403, :text => _("You have to log in for comment.")) unless logged_in?
     @patch = Patch.find :first, :conditions => ['patches.id = ? and patches.issue_id = ? and patches.patchset_id = ?', params[:patch][:id], params[:issue][:id], params[:patchset][:id]], :include => [:issue, :patchset]
     return render(:status => 404, :text => _("Patch is not found.")) unless @patch
-    @comment = Comment.new params[:comment]
-    @comment.patch = @patch
-    @comment.side = params[:side]
-    @comment.draft = 1
-    @comment.issue = @patch.issue
-    @comment.patchset = @patch.patchset
-    @comment.parent_id = 0
-    @comment.user = self.current_user
+    if params[:comment][:id]
+      @comment = Comment.find :first, :conditions => ['comments.id = ? and comments.user_id = ?', params[:comment][:id], self.current_user.id]
+      return render(:status => 403, :text => _("Comment is not found")) unless @comment
+      @comment.attributes = params[:comment]
+    else
+      @comment = Comment.new params[:comment]
+      @comment.patch = @patch
+      @comment.draft = 1
+      @comment.issue = @patch.issue
+      @comment.patchset = @patch.patchset
+      @comment.parent_id = 0
+      @comment.user = self.current_user
+    end
     return render(:status => 403, :text => _("Comment save failed.")) unless @comment.save
     @issue = @patch.issue
     @patchset = @patch.patchset

@@ -18,7 +18,7 @@
   <%= link_to _("Publish+Mail Comments"), {:controller => :issue, :action => :publish, :id => @issue.id}, :class => 'novisit' %>
   
   |
-  <%= link_to _("<b>Start Review</b>"), {:controller => :issue, :action => :diff, :id => @issue.id, :psid => @issue.patchsets.first.patches.first.id}, :class => 'novisit' %>
+  <%= link_to _("<b>Start Review</b>"), {:controller => :issue, :action => :diff, :id => @issue.id, :psid => @issue.patchsets.first.id, :pid => @issue.patchsets.first.patches.first.id}, :class => 'novisit' %>
 </div>
 </div>
 

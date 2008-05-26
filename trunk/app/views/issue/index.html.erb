@@ -4,6 +4,7 @@
 
 <tr><td colspan="7"><h3>Issues Created by me</h3></td></tr>
 
+<% if logged_in? %>
 <% 
    issues = self.current_user.issues.find(:all, :order => 'updated_at desc')
    if issues.length == 0 %>
@@ -38,6 +39,7 @@
     <td><div class="date"><%= timeago i.updated_at %></div></td>
   </tr>
 <% } %>
+<% end %>
 <% end %>
 <tr><td colspan="7"><h3>Issues Reviewable by me</h3></td></tr>
 

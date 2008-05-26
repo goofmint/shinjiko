@@ -600,8 +600,8 @@ function M_replyToComment(author, written_time, ccs, cid, prefix, opt_lineno,
   form.reply_to.value = cid;
   form.ccs.value = ccs;
   if (typeof opt_lineno != 'undefined' && typeof opt_snapshot != 'undefined') {
-    form.lineno.value = opt_lineno;
-    form.snapshot.value = opt_snapshot;
+      document.getElementById("comment_line").value = opt_lineno;
+      document.getElementById("comment_snapshot").value = opt_snapshot;
   }
   form.text.value = "On " + written_time + ", " + author + " wrote:\n";
   var divs = document.getElementsByName("comment-text-" + cid);
@@ -756,15 +756,15 @@ function M_createInlineComment(lineno, side) {
   // The first field of the suffix is typically the cid, but we choose '-1'
   // here since the backend hasn't assigned the new comment a cid yet.
   var suffix = "-1-" + lineno + "-" + side;
-  var form = document.getElementById("comment-form-" + suffix);
+  var form = $("comment-form-" + suffix);
   if (!form) {
-    form = document.getElementById("dainlineform").cloneNode(true);
+    form = $("dainlineform").cloneNode(true);
     form.name = form.id = "comment-form-" + suffix;
     M_assignToCancel_(form, M_removeTempInlineComment);
     M_createResizer_(form, suffix);
     M_assignToSave_(form, "-1", lineno, side);
     // There is a "text" node before the "div" node
-    form.childNodes[1].setAttribute("name", "comment-border");
+    form.childNodes[2].setAttribute("name", "comment-border");
     var id = (side == 'a' ? "old" : "new") + "-line-" + lineno;
     var td = document.getElementById(id);
     td.appendChild(form);
@@ -773,17 +773,21 @@ function M_createInlineComment(lineno, side) {
     hookState.updateHooks();
   }
   form.style.display = "";
-  form.lineno.value = lineno;
+  $("comment_line").value = lineno;
   if (side == 'b') {
-    form.snapshot.value = new_snapshot;
+    $("comment_snapshot").value = new_snapshot;
   } else {
-    form.snapshot.value = old_snapshot;
+    $("comment_snapshot").value = old_snapshot;
   }
-  form.side.value = side;
-  var savedDraftKey = "new-" + form.lineno.value + "-" + form.snapshot.value;
+  document.getElementById("comment_side").value = side;
+  var savedDraftKey = "new-" + $("comment_line").value + "-" + $("comment_snapshot").value;
   M_restoreDraftText_(savedDraftKey, form);
-  form.text.focus();
+  $("comment_text").focus();
   hookState.gotoHook(0);
+}
+
+function $(id) {
+  return document.getElementById(id);
 }
 
 /**
@@ -1033,26 +1037,24 @@ function M_updateRowHook(tr) {
  */
 function M_submitInlineComment(form, cid, lineno, side) {
   var td = null;
-  if (form.side.value == 'a') {
-    td = document.getElementById("old-line-" + form.lineno.value);
+  if ($("comment_side").value == 'a') {
+    td = $("old-line-" + $("comment_line").value);
   } else {
-    td = document.getElementById("new-line-" + form.lineno.value);
+    td = $("new-line-" + $("comment_line").value);
   }
   if (!td) {
-    alert("Could not find snapshot " + form.snapshot.value + "! Please let " +
+    alert("Could not find snapshot " + $("comment_snapshot").value + "! Please let " +
           "the app owner know.");
     return true;
   }
-
   // Clear saved draft state for affected new, edited, and replied comments
   if (typeof cid != "undefined" && typeof lineno != "undefined" && side) {
     var suffix = cid + "-" + lineno + "-" + side;
-    M_clearDraftText_("new-" + lineno + "-" + form.snapshot.value);
+    M_clearDraftText_("new-" + lineno + "-" + $("comment_snapshot").value);
     M_clearDraftText_("edit-" + suffix);
     M_clearDraftText_("reply-" + suffix);
     M_hideElement("undo-link-" + suffix);
   }
-
   var httpreq = M_getXMLHttpRequest();
   if (!httpreq) {
     // No AJAX. Oh well. Go ahead and submit this the old way.
@@ -1070,7 +1072,7 @@ function M_submitInlineComment(form, cid, lineno, side) {
     if (form.discard != null) {
       form.discard.disabled = false;
     }
-    form.text.disabled = false;
+    $("comment_text").disabled = false;
     form.style.cursor = "auto";
   };
 
@@ -1089,6 +1091,7 @@ function M_submitInlineComment(form, cid, lineno, side) {
     // fields unset when the timeout aborts the request, against all
     // documentation.
     if (httpreq.readyState == 4 && !aborted) {
+	alert(httpreq.status);
       clearTimeout(httpreq_timeout);
       if (httpreq.status == 200) {
         M_updateInlineComment(td, httpreq.responseText);
@@ -1102,7 +1105,7 @@ function M_submitInlineComment(form, cid, lineno, side) {
       }
     }
   }
-  httpreq.open("POST", "/inline_draft", true);
+  httpreq.open("POST", "/issue/inline_draft", true);
   httpreq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   var req = [];
   var len = form.elements.length;
@@ -1113,6 +1116,9 @@ function M_submitInlineComment(form, cid, lineno, side) {
     }
   }
   req.push("side=" + side);
+    alert(req.join("&"));
+    alert($("comment_snapshot").value);
+    return false;
 
   // Disable forever. If this succeeds, then the form will end up getting
   // rewritten, and if it fails, the page should get a refresh anyways.
@@ -1124,8 +1130,8 @@ function M_submitInlineComment(form, cid, lineno, side) {
     form.discard.blur();
     form.discard.disabled = true;
   }
-  form.text.blur();
-  form.text.disabled = true;
+  $("comment_text").blur();
+  $("comment_text").disabled = true;
   form.style.cursor = "wait";
 
   // Send the request

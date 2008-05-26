@@ -603,11 +603,11 @@ function M_replyToComment(author, written_time, ccs, cid, prefix, opt_lineno,
       document.getElementById("comment_line").value = opt_lineno;
       document.getElementById("comment_snapshot").value = opt_snapshot;
   }
-  form.text.value = "On " + written_time + ", " + author + " wrote:\n";
+  form.comment_text.value = "On " + written_time + ", " + author + " wrote:\n";
   var divs = document.getElementsByName("comment-text-" + cid);
-  M_setValueFromDivs(divs, form.text);
-  form.text.value += "\n";
-  form.text.focus();
+  M_setValueFromDivs(divs, form.comment_text);
+  form.comment_text.value += "\n";
+  form.comment_text.focus();
 }
 
 /**
@@ -630,7 +630,7 @@ function M_editComment(cid) {
   M_hideElement("edit-link-" + suffix);
   M_hideElement("undo-link-" + suffix);
   form.style.display = "";
-  form.text.focus();
+  form.comment_text.focus();
 }
 
 /**
@@ -640,8 +640,8 @@ function M_editComment(cid) {
  * @param {Integer} cid The number of the comment being hidden
  */
 function M_resetAndHideComment(form, cid) {
-  form.text.blur();
-  form.text.value = form.oldtext.value;
+  form.comment_text.blur();
+  form.comment_text.value = form.comment_oldtext.value;
   form.style.display = "none";
   var texts = document.getElementsByName("comment-text-" + cid);
   var textsLength = texts.length;
@@ -657,7 +657,7 @@ function M_resetAndHideComment(form, cid) {
  * @return true in order for the form submission to continue
  */
 function M_removeComment(form) {
-  form.text.value = "";
+  form.comment_text.value = "";
   return true;
 }
 
@@ -703,8 +703,8 @@ function M_createResizer_(form, suffix) {
     resizer.onclick = function() {
       var form = document.getElementById("comment-form-" + suffix);
       if (!form) return;
-      form.text.rows += 5;
-      form.text.focus();
+      form.comment_text.rows += 5;
+      form.comment_text.focus();
     };
 
     // Using form.elements would be far more concise, but this hack is
@@ -758,7 +758,7 @@ function M_createInlineComment(lineno, side) {
   var suffix = "-1-" + lineno + "-" + side;
   var form = $("comment-form-" + suffix);
   if (!form) {
-    form = $("dainlineform").cloneNode(true);
+    form = document.getElementById("dainlineform").cloneNode(true);
     form.name = form.id = "comment-form-" + suffix;
     M_assignToCancel_(form, M_removeTempInlineComment);
     M_createResizer_(form, suffix);
@@ -773,16 +773,16 @@ function M_createInlineComment(lineno, side) {
     hookState.updateHooks();
   }
   form.style.display = "";
-  $("comment_line").value = lineno;
+  form.comment_line.value = lineno;
   if (side == 'b') {
-    $("comment_snapshot").value = new_snapshot;
+    form.comment_snapshot.value = new_snapshot;
   } else {
-    $("comment_snapshot").value = old_snapshot;
+    form.comment_snapshot.value = old_snapshot;
   }
   document.getElementById("comment_side").value = side;
-  var savedDraftKey = "new-" + $("comment_line").value + "-" + $("comment_snapshot").value;
+  var savedDraftKey = "new-" + form.comment_line.value + "-" + form.comment_snapshot.value;
   M_restoreDraftText_(savedDraftKey, form);
-  $("comment_text").focus();
+  form.comment_text.focus();
   hookState.gotoHook(0);
 }
 
@@ -806,7 +806,7 @@ function M_removeTempReplyInlineComment(form, cid, lineno, side) {
   form.cancel.blur();
   // The order of the subsequent lines is sensitive to browser compatibility.
   var suffix = cid + "-" + lineno + "-" + side;
-  M_saveDraftText_("reply-" + suffix, form.text.value);
+  M_saveDraftText_("reply-" + suffix, form.comment_text.value);
   divInlineComment.removeChild(form);
   M_updateRowHook(tr);
 }
@@ -821,8 +821,8 @@ function M_removeTempInlineComment(form) {
   var td = M_getParent(form);
   var tr = M_getParent(td);
   // The order of the subsequent lines is sensitive to browser compatibility.
-  var savedDraftKey = "new-" + form.lineno.value + "-" + form.snapshot.value;
-  M_saveDraftText_(savedDraftKey, form.text.value);
+  var savedDraftKey = "new-" + form.comment_line.value + "-" + form.comment_snapshot.value;
+  M_saveDraftText_(savedDraftKey, form.comment_text.value);
   form.cancel.blur();
   td.removeChild(form);
   M_updateRowHook(tr);
@@ -856,7 +856,7 @@ function M_editInlineCommentCommon_(cid, lineno, side) {
   if (parent && parent.style.display == "none") {
     M_switchInlineComment(cid, lineno, side);
   }
-  form.text.focus();
+  form.comment_text.focus();
   hookState.gotoHook(0);
   return form;
 }
@@ -915,28 +915,28 @@ function M_replyToInlineCommentCommon_(author, written_time, cid, lineno,
     parent.appendChild(form);
   }
   form.style.display = "";
-  form.lineno.value = lineno;
+  form.comment_line.value = lineno;
   if (side == 'b') {
-    form.snapshot.value = new_snapshot;
+    form.comment_snapshot.value = new_snapshot;
   } else {
-    form.snapshot.value = old_snapshot;
+    form.comment_snapshot.value = old_snapshot;
   }
-  form.side.value = side;
+  form.comment_side.value = side;
   if (!M_restoreDraftText_("reply-" + suffix, form, false) ||
       typeof opt_reply != "undefined") {
-    form.text.value = "On " + written_time + ", " + author + " wrote:\n";
+    form.comment_text.value = "On " + written_time + ", " + author + " wrote:\n";
     var divs = document.getElementsByName("comment-text-" + suffix);
-    M_setValueFromDivs(divs, form.text);
-    form.text.value += "\n";
+    M_setValueFromDivs(divs, form.comment_text);
+    form.comment_text.value += "\n";
     if (typeof opt_reply != "undefined") {
-      form.text.value += opt_reply;
+      form.comment_text.value += opt_reply;
     }
     if (opt_submit) {
       M_submitInlineComment(form, cid, lineno, side);
       return;
     }
   }
-  form.text.focus();
+  form.comment_text.focus();
   hookState.gotoHook(0);
   return form;
 }
@@ -1037,20 +1037,20 @@ function M_updateRowHook(tr) {
  */
 function M_submitInlineComment(form, cid, lineno, side) {
   var td = null;
-  if ($("comment_side").value == 'a') {
-    td = $("old-line-" + $("comment_line").value);
+  if (form.comment_side.value == 'a') {
+    td = $("old-line-" + form.comment_line.value);
   } else {
-    td = $("new-line-" + $("comment_line").value);
+    td = $("new-line-" + form.comment_line.value);
   }
   if (!td) {
-    alert("Could not find snapshot " + $("comment_snapshot").value + "! Please let " +
+    alert("Could not find snapshot " + form.comment_snapshot.value + "! Please let " +
           "the app owner know.");
     return true;
   }
   // Clear saved draft state for affected new, edited, and replied comments
   if (typeof cid != "undefined" && typeof lineno != "undefined" && side) {
     var suffix = cid + "-" + lineno + "-" + side;
-    M_clearDraftText_("new-" + lineno + "-" + $("comment_snapshot").value);
+    M_clearDraftText_("new-" + lineno + "-" + form.comment_snapshot.value);
     M_clearDraftText_("edit-" + suffix);
     M_clearDraftText_("reply-" + suffix);
     M_hideElement("undo-link-" + suffix);
@@ -1072,7 +1072,7 @@ function M_submitInlineComment(form, cid, lineno, side) {
     if (form.discard != null) {
       form.discard.disabled = false;
     }
-    $("comment_text").disabled = false;
+    form.comment_text.disabled = false;
     form.style.cursor = "auto";
   };
 
@@ -1091,7 +1091,6 @@ function M_submitInlineComment(form, cid, lineno, side) {
     // fields unset when the timeout aborts the request, against all
     // documentation.
     if (httpreq.readyState == 4 && !aborted) {
-	alert(httpreq.status);
       clearTimeout(httpreq_timeout);
       if (httpreq.status == 200) {
         M_updateInlineComment(td, httpreq.responseText);
@@ -1115,10 +1114,7 @@ function M_submitInlineComment(form, cid, lineno, side) {
       req.push(element.name + "=" + encodeURIComponent(element.value));
     }
   }
-  req.push("side=" + side);
-    alert(req.join("&"));
-    alert($("comment_snapshot").value);
-    return false;
+  // req.push("comment[side]=" + side);
 
   // Disable forever. If this succeeds, then the form will end up getting
   // rewritten, and if it fails, the page should get a refresh anyways.
@@ -1130,8 +1126,8 @@ function M_submitInlineComment(form, cid, lineno, side) {
     form.discard.blur();
     form.discard.disabled = true;
   }
-  $("comment_text").blur();
-  $("comment_text").disabled = true;
+  form.comment_text.blur();
+  form.comment_text.disabled = true;
   form.style.cursor = "wait";
 
   // Send the request
@@ -1152,8 +1148,8 @@ function M_removeInlineComment(form, cid, lineno, side) {
   // Update state to save the canceled edit text
   var snapshot = side == "a" ? old_snapshot : new_snapshot;
   var savedDraftKey = "new-" + lineno + "-" + snapshot;
-  var savedText = form.text.value;
-  form.text.value = "";
+  var savedText = form.comment_text.value;
+  form.comment_text.value = "";
   var ret = M_submitInlineComment(form, cid, lineno, side);
   M_saveDraftText_(savedDraftKey, savedText);
   return ret;
@@ -1196,13 +1192,13 @@ function M_setValueFromDivs(divs, text) {
 function M_resetAndHideInlineComment(form, cid, lineno, side) {
   // Update canceled edit state
   var suffix = cid + "-" + lineno + "-" + side;
-  M_saveDraftText_("edit-" + suffix, form.text.value);
-  if (form.text.value != form.oldtext.value) {
+  M_saveDraftText_("edit-" + suffix, form.comment_text.value);
+  if (form.comment_text.value != form.comment_oldtext.value) {
     M_showElement("undo-link-" + suffix);
   }
 
-  form.text.blur();
-  form.text.value = form.oldtext.value;
+  form.comment_text.blur();
+  form.comment_text.value = form.comment_oldtext.value;
   form.style.display = "none";
   var texts = document.getElementsByName("comment-text-" + suffix);
   var textsLength = texts.length;
@@ -2221,9 +2217,9 @@ function M_clearDraftText_(draftKey) {
  */
 function M_restoreDraftText_(draftKey, form, opt_selectAll) {
   if (M_savedInlineDrafts[draftKey]) {
-    form.text.value = M_savedInlineDrafts[draftKey];
+    form.comment_text.value = M_savedInlineDrafts[draftKey];
     if (typeof opt_selectAll == 'undefined' || opt_selectAll) {
-      form.text.select();
+      form.comment_text.select();
     }
     return true;
   }

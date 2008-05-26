@@ -94,10 +94,11 @@ Comments</a>
 N/P to move between comments.
 
 Double-click a line to add a draft in-line comment.
-<br><span style="color:red">Draft comments are only viewable by you;</span>
-use <a class="novisit" href="/8/publish">Publish+Mail
-Comments</a> to let others view them.
-
+<br>
+<% if logged_in? && Comment.count(:conditions => ['user_id = ? and draft = 1', self.current_user.id]) > 0 %>
+<span style="color:red">Draft comments are only viewable by you;</span>
+use <%= link_to _("Publish+Mail Comments"),{:controller => :issu, :action => :publish, :id => @issue.id}, :class => "novisit" %> to let others view them.
+<% end %>
 </i></p>
 
 <div style="position:relative" id="table-top">
@@ -115,12 +116,24 @@ Comments</a> to let others view them.
    [@new.length, @old.length].max.times {|i|
 %>
   <tr <%= 'class="hook"' unless @old[i] == @new[i]%>>
-    <td <%= @old[i] ? "id=\"oldcode#{i+1}\"" : "" %>  class="<%= line_class(@old[i], @new[i], true) %>">  <% unless @old[i].nil? %><%= @old[i] == @new[i] ? old_lineno : "<u>#{old_lineno}</u>" %><% old_lineno += 1 %><% end %> <%=h fold @old[i].to_s, 73 %></td>
-    <td <%= @new[i] ? "id=\"newcode#{i+1}\"" : "" %> class="<%= line_class(@old[i], @new[i], false) %>">  <% unless @new[i].nil? %><%= @old[i] == @new[i] ? new_lineno : "<u>#{new_lineno}</u>" %><% new_lineno += 1 %><% end %> <%=h fold @new[i].to_s, 73 %></td>
+    <td <%= @old[i] ? "id=\"oldcode#{old_lineno}\"" : "" %>  class="<%= line_class(@old[i], @new[i], true) %>">  <% unless @old[i].nil? %><%= @old[i] == @new[i] ? old_lineno : "<u>#{old_lineno}</u>" %><% old_lineno += 1 %><% end %> <%=h fold @old[i].to_s, 73 %></td>
+    <td <%= @new[i] ? "id=\"newcode#{new_lineno}\"" : "" %> class="<%= line_class(@old[i], @new[i], false) %>">  <% unless @new[i].nil? %><%= @old[i] == @new[i] ? new_lineno : "<u>#{new_lineno}</u>" %><% new_lineno += 1 %><% end %> <%=h fold @new[i].to_s, 73 %></td>
   </tr>
   <tr class="inline-comments">
-    <td id="old-line-<%= i+1 %>"></td>
-    <td id="new-line-<%= i+1 %>"></td>
+    <td id="old-line-<%= i+1 %>">
+      <% if @comments["#{i+1}a"] %>
+        <% @comments["#{i+1}a"].each {|c| %>
+	  <%= render :partial => 'comment_view', :locals => {:comment => c} %>
+	<% } %>
+      <% end %>
+    </td>
+    <td id="new-line-<%= i+1 %>">
+      <% if @comments["#{i+1}b"] %>
+        <% @comments["#{i+1}b"].each {|c| %>
+	  <%= render :partial => 'comment_view', :locals => {:comment => c} %>
+	<% } %>
+      <% end %>
+    </td>
   </tr>
   <% } %>
 

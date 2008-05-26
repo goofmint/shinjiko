@@ -1,3 +1,6 @@
+require 'net/http'
+require 'net/https'
+
 class Patchset < ActiveRecord::Base
   before_save :parsepatch
   has_many :patches

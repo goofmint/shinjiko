@@ -1,6 +1,24 @@
 # -*- coding: utf-8 -*-
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def fold(str, length=60)
+    if str.size > length
+      NKF.nkf("-F#{length} -Ww", str).gsub(/\r?\n/){"\r\n"}
+    else
+      str.gsub(/\r?\n/){"\r\n"}
+    end
+  end
+  
+  def line_class(old = nil, new = nil, old_line = true)
+    if old == new
+      return old_line ? "oldequal" : "newequal"
+    end
+    if old.nil? && new
+      return old_line ? "oldblank" : "newinsert"
+    end
+    return old_line ? "olddelete" : "newblank"
+  end
+  
   def timeago(time, options = {})
     start_date = options.delete(:start_date) || Time.new
     date_format = options.delete(:date_format) || :default

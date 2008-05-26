@@ -1,0 +1,171 @@
+
+<script language="JavaScript" type="text/javascript"><!--
+function keyPressIntermediary(evt) {
+  return M_keyPress(evt);
+}
+document.onkeypress = keyPressIntermediary;
+
+logged_in = true;
+
+// -->
+</script>
+
+<!-- Form used by in-line comment JS; XXX filled in by JS code -->
+<% form_tag({:controller => :issue, :action => :inline_draft}, :method => :post, :id => "dainlineform", :style => "display: none;") do %>
+  <div class="comment-border" name="form-container">
+    <%= hidden_field :comment, :snapshot %>
+    <%= hidden_field :comment, :line %>
+    <%= hidden_field :comment, :side %>
+    <%= hidden_field :issue, :id %>
+    <%= hidden_field :patchset, :id %>
+    <%= hidden_field :patch, :id %>
+    <%= text_area :comment, :text, :cols => 60, :rows => 5 %>
+    <br>
+
+    <input type="submit" name="save" value="Save"
+           onclick="return M_submitInlineComment(this.form);">
+    <input type="reset" name="cancel" value="Cancel"
+           onclick="M_removeTempInlineComment(this.form)">
+  </div>
+  <div class="comment-border" style="padding: 0pt;"></div>
+<% end %>
+<a id="resizer" style="display:none;cursor:pointer"><img src="/static/zippyplus.gif"></a>
+
+<h2>File: <%=h @patch.filename %></h2>
+
+<div>
+  <b>Issue:</b>
+  <%= link_to @issue.subject,{:controller => :issue, :action => :view, :id => @issue.id}, :id => "upCL" %>
+  ('u')
+</div>
+<div>
+  <i>Created:</i> <%= timeago @issue.created_at %> by <b><%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %></b>;
+  <i>Last updated:</i> <%= timeago @issue.updated_at %>
+</div>
+
+<div><i>SVN Base:</i> <%= @issue.base %></div>
+<div><i>Reviewers:</i> <%= @issue.reviewer_string %></div>
+<div>
+  <b>Patch Set: <%= @patchset.message %></b>
+</div>
+
+<div>
+  <i>Created:</i> <%= timeago @patchset.created_at %>
+</div>
+
+<p>
+<% if @p_patch %>
+  <%= link_to "&laquo; #{@p_patch.filename}", :controller => :issue, :action => :diff, :id => @issue.id, :psid => @patchset.id, :pid => @p_patch.id %> ('k')
+<% else %>
+<span class="disabled">&laquo; no previous file</span>
+<% end %>
+|
+<% if @n_patch %>
+  <%= link_to "#{@n_patch.filename} &raquo;", :controller => :issue, :action => :diff, :id => @issue.id, :psid => @patchset.id, :pid => @n_patch.id %> ('j')
+<% else %>
+<span class="disabled">no next file &laquo;</span>
+<% end %>
+|
+<%= link_to _("View unified diff"), :controller => :issue, :action => :patch, :id => @issue.id, :psid => @patchset.id, :pid => @patch.id %>
+|
+
+<a href="javascript:if (intraLineDiff) intraLineDiff.toggle()">
+Toggle Intra-line Diffs</a> ('i')
+|
+<a href="javascript:M_expandAllInlineComments()">Expand Comments</a> ('e')
+|
+<a href="javascript:M_collapseAllInlineComments()">Collapse Comments</a> ('c')
+|
+<a id="show-all-inline"
+   style="display:none"
+   href="javascript:M_showAllInlineComments()">Show Comments</a>
+<a id="hide-all-inline"
+   href="javascript:M_hideAllInlineComments()">Hide Comments</a> ('s')
+
+|
+<a class="novisit" href="/8/publish">Publish+Mail
+Comments</a>
+
+</p>
+
+<h3>Side by Side Diff</h3>
+
+<p><i>Use n/p to move between diff chunks;
+N/P to move between comments.
+
+Double-click a line to add a draft in-line comment.
+<br><span style="color:red">Draft comments are only viewable by you;</span>
+use <a class="novisit" href="/8/publish">Publish+Mail
+Comments</a> to let others view them.
+
+</i></p>
+
+<div style="position:relative" id="table-top">
+
+<span id="hook-sel" style="display:none;"></span>
+
+<table border="0" cellpadding="0" cellspacing="0" id="thecode"
+       ondblclick="M_handleTableDblClick(event)">
+
+<tr><th>OLD</th><th>NEW</th></tr>
+
+<% 
+   old_lineno = 1
+   new_lineno = 1
+   [@new.length, @old.length].max.times {|i|
+%>
+  <tr <%= 'class="hook"' unless @old[i] == @new[i]%>>
+    <td <%= @old[i] ? "id=\"oldcode#{i+1}\"" : "" %>  class="<%= line_class(@old[i], @new[i], true) %>">  <% unless @old[i].nil? %><%= @old[i] == @new[i] ? old_lineno : "<u>#{old_lineno}</u>" %><% old_lineno += 1 %><% end %> <%=h fold @old[i].to_s, 73 %></td>
+    <td <%= @new[i] ? "id=\"newcode#{i+1}\"" : "" %> class="<%= line_class(@old[i], @new[i], false) %>">  <% unless @new[i].nil? %><%= @old[i] == @new[i] ? new_lineno : "<u>#{new_lineno}</u>" %><% new_lineno += 1 %><% end %> <%=h fold @new[i].to_s, 73 %></td>
+  </tr>
+  <tr class="inline-comments">
+    <td id="old-line-<%= i+1 %>"></td>
+    <td id="new-line-<%= i+1 %>"></td>
+  </tr>
+  <% } %>
+
+<tr><th>OLD</th><th>NEW</th></tr>
+
+</table>
+
+</div>
+
+<p>
+
+<span class="disabled">&laquo; no previous file</span>
+|
+
+
+<a id="nextFile"
+   href="/8/diff/56/58">
+doc/README_FOR_APP &raquo;</a> ('j')
+|
+<a href="/8/patch/56/57">
+View unified diff</a>
+|
+<a href="javascript:if (intraLineDiff) intraLineDiff.toggle()">
+Toggle Intra-line Diffs</a> ('i')
+|
+<a href="javascript:M_expandAllInlineComments()">Expand Comments</a> ('e')
+|
+<a href="javascript:M_collapseAllInlineComments()">Collapse Comments</a> ('c')
+|
+
+<a href="javascript:M_toggleAllInlineComments()">
+Toggle Comments</a> ('s')
+
+|
+<a class="novisit" href="/8/publish">Publish+Mail
+Comments</a>
+
+</p>
+
+</script>
+<script language="JavaScript" type="text/javascript"><!--
+var old_snapshot = "old";
+var new_snapshot = "new";
+var intraLineDiff = new M_IntraLineDiff();
+var hookState = new M_HookState(window);
+hookState.updateHooks();
+// -->
+</script>

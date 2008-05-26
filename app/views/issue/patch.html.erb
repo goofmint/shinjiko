@@ -1,0 +1,55 @@
+
+<script language="JavaScript" type="text/javascript"><!--
+function keyPressIntermediary(evt) {
+  return M_keyPress(evt);
+}
+document.onkeypress = keyPressIntermediary;
+// -->
+</script>
+
+<h2>File: <%= @patch.filename %></h2>
+
+<div>
+  <b>Issue:</b>
+  <%= link_to @issue.subject,{:controller => :issue, :action => :view, :id => @issue.id}, :id => "upCL" %>
+  ('u')
+</div>
+<div>
+  <i>Created:</i> <%= timeago @issue.created_at %> by <b><%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %></b>;
+  <i>Last updated:</i> <%= timeago @issue.updated_at %>
+
+</div>
+<div><i>SVN Base:</i> <%= @issue.base %></div>
+<div><i>Reviewers:</i> <%= @issue.reviewer_string %></div>
+<div>
+  <b>Patch Set: <%= @patchset.message %></b>
+</div>
+
+<div>
+  <i>Created:</i> <%= timeago @patchset.created_at %>
+</div>
+
+<p>
+
+
+<% if @p_patch %>
+  <%= link_to "&laquo; #{@p_patch.filename}", :controller => :issue, :action => :patch, :id => @issue.id, :psid => @patchset.id, :pid => @p_patch.id %> ('k')
+<% else %>
+<span class="disabled">&laquo; no previous file</span>
+<% end %>
+|
+<% if @n_patch %>
+  <%= link_to "#{@n_patch.filename} &raquo;", :controller => :issue, :action => :patch, :id => @issue.id, :psid => @patchset.id, :pid => @n_patch.id %> ('j')
+<% else %>
+<span class="disabled">no next file &laquo;</span>
+<% end %>
+|
+<%= link_to _("  View side-by-side diff with inline comments"), :controller => :issue, :action => :diff, :id => @issue.id, :psid => @patchset.id, :pid => @patch.id %>
+
+</p>
+
+<h3>Unified Diff</h3>
+
+<pre>
+<%=h @patch.text %>
+</pre>

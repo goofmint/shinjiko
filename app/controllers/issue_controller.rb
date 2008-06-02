@@ -207,6 +207,13 @@ class IssueController < ApplicationController
     redirect_to :controller => :issue, :action => :view, :id => @issue.id
   end
   
+  def download
+    @patchset = Patchset.find :first, :conditions => ['patchsets.id = ? ', params[:psid]]
+    return render(:status => 404, :text => _("Patchset is not found")) unless @patchset
+    response.content_type = 'text/plain'
+    return render(:text => @patchset.file)
+  end
+  
   private
   def p_and_n
     @p_patch  = Patch.find :first, :conditions => ['patches.id < ? and issue_id = ? and patchset_id = ?', params[:pid], params[:id], params[:psid]], :order => 'patches.id'

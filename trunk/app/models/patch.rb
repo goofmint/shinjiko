@@ -142,7 +142,8 @@ class Patch < ActiveRecord::Base
   def draft_comment(user)
     return nil unless user
     return @draft_comment if @draft_comment
-    @draft_comment = self.comments.count(:conditions => ['user_id = ? and draft = 1', user.id])
+    @draft_comment = self.comments.count(:conditions => ['user_id = ? and draft = 1', user.id]) + 
+      Comment.count(:conditions => ['user_id = ? and ((patch_right_id = ? and side = \'a\') or (patch_left_id = ? and side = \'b\'))', user.id, self.id, self.id])
   end
   
   def chunk

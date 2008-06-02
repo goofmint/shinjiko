@@ -1,5 +1,13 @@
 <h2>Issue: <%=h @issue.subject %> </h2>
 
+<% if (comment_count = self.current_user.comments.count(:conditions => ['comments.issue_id = ? and draft = 1', @issue.id])) && comment_count != 0 %>
+<div class="error">You have <b><%=h comment_count %> draft</b>
+ comments.
+Drafts are not viewable by others; use
+<%= link_to _("Publish+Mail Comments"), {:controller => :issue, :action => :publish, :id => @issue.id}, :class => 'novisit' %>
+ to let others view them.
+</div>
+<% end %>
 
 <div style="float: left; padding-right: 1em">
 <div>
@@ -153,7 +161,7 @@ Collapse All Comments</a>
     <div>Subject: <%=h m.subject %></div>
     <div>To: <%= m.reviewer_string %></div>
     <div>Date: <%= m.created_at %></div>
-    <pre><%= m.message %></pre>
+    <pre><%= trans m.message %></pre>
   </div>
 <% } %>
 

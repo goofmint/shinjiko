@@ -9,9 +9,9 @@ class Patch < ActiveRecord::Base
     raw_chunk = []
     chunks = []
     old_range = new_range = nil
-    old_last  = new_last  = 0
     in_prelude = true
-    self.text.split(/\r\n|\r|\n/).each { |l|
+    text = self.text.split(/\r\n|\r|\n/)
+    text.each { |l|
       lineno += 1
       if in_prelude
         if l =~ /^\+{3}/
@@ -34,7 +34,7 @@ class Patch < ActiveRecord::Base
           old_i, old_j = old_range
           new_i, new_j = new_range
           if old_chunk.length != old_j - old_i || new_chunk.length != new_j - new_i
-            logger.debug("%s:%s:1: previous chunk has incorrect length" % [name, lineno])
+            logger.debug("%s:%s:2: previous chunk has incorrect length" % [name, lineno])
             return nil
           end
           chunks << [old_range, new_range, raw_chunk]
@@ -49,25 +49,14 @@ class Patch < ActiveRecord::Base
         new_i = new_n == 0 ? new_ln : new_ln - 1
         new_j = new_i + new_n
         new_range = [new_i, new_j]
-        
-        if old_i < old_last || new_i < new_last
-          logger.debug("%s:%s: chunk header out of order: %r" % [name, lineno, line])
-          return nil
-        end
-        if old_i - old_last != new_i - new_last
-          logger.debug("%s:%s: inconsistent chunk header: %r" % [name, lineno, line])
-          return nil
-        end
-        old_last = old_j
-        new_last = new_j
       else
         tag = l[0,1]
         rest = l[1..-1]
-        if tag == " " and rest == "No newline at end of file"
+        if tag == " " and (rest == "No newline at end of file" || rest.nil?)
         elsif [" ", "-", "+"].index tag
           raw_chunk << [tag, rest]
         else
-          logging.warn("%s:%d: indecypherable input: %r" % [name, lineno, line])
+          logger.debug("%s:%d: indecypherable input: %r" % [name, lineno, __LINE__])
           break if chunks || raw_chunk
           return nil
         end
@@ -84,7 +73,11 @@ class Patch < ActiveRecord::Base
       old_i, old_j = old_range
       new_i, new_j = new_range
       if old_chunk.length != old_j - old_i || new_chunk.length != new_j - new_i
+        logger.debug("Length:#{old_chunk.length} #{old_j} #{old_i}")
         logger.debug("%s:%s:1: previous chunk has incorrect length" % [name, lineno])
+        raw_chunk.each { |tag, rest|
+          logger.debug("#{tag} #{rest}")
+        }
         return nil
       end
       chunks << [old_range, new_range, raw_chunk]
@@ -94,17 +87,16 @@ class Patch < ActiveRecord::Base
     return chunks
   end
   
-  def application_patch
-    chunks = self.parse
+  def application_patch(chunks = nil)
+    chunks = self.parse unless chunks
+    logger.debug "chunk #{chunks}"
     return nil unless chunks
     content = self.get_content
     return nil unless content
     old_file = content.split(/\r\n|\r|\n/)
-    new_file = old_file
-    old_file.each { |l|
-      logger.debug "#{l}"
-    }
-    
+    new_file = content.split(/\r\n|\r|\n/)
+    old_file << "" if old_file[-1] != ""
+    new_file << "" if new_file[-1] != ""
     diff_line_count = 0
     chunks.each {|old_range, new_range, chunk|
       count = 0
@@ -115,8 +107,8 @@ class Patch < ActiveRecord::Base
         break unless chunk[count]
         new_file[i] = nil if chunk[count][0] == "-"
         if chunk[count][0] == "+"
-          old_file = old_file[0..(i-1)] + [nil] + old_file[i..-1]
-          new_file = new_file[0..(i-1)] + [chunk[count][1]] + new_file[i..-1]
+          old_file = old_file[0..(i-1)] + [nil] + (old_file[i..-1] || [])
+          new_file = new_file[0..(i-1)] + [chunk[count][1]] + (new_file[i..-1] || [])
         end
         count += 1
       end
@@ -126,9 +118,6 @@ class Patch < ActiveRecord::Base
         new_line_count += 1 unless l.nil?
       }
       diff_line_count += old_line_count - new_line_count
-    }
-    old_file.each { |l|
-      logger.debug "#{l}"
     }
     [old_file, new_file]
   end
@@ -148,5 +137,17 @@ class Patch < ActiveRecord::Base
     self.content = self.issue.fetch self
     self.save
     self.content
+  end
+  
+  def draft_comment(user)
+    return nil unless user
+    return @draft_comment if @draft_comment
+    @draft_comment = self.comments.count(:conditions => ['user_id = ? and draft = 1', user.id])
+  end
+  
+  def chunk
+    chunks = self.parse
+    return 0 unless chunks
+    return chunks.length
   end
 end

@@ -1,0 +1,17 @@
+<%= @message.message %>
+<%
+   old_patch_id = 0
+   old_side     = nil
+   @comments.each {|m|
+     delta = m.patch_right_id ? true : false
+     current_id = delta ? m.patch_left_id : m.patch_id
+%>
+  <% if old_patch_id != current_id || old_side != m.side %>
+<% unless delta %><%=h url_for(:controller => :issue, :action => :diff, :id => m.issue_id, :psid => m.patchset_id, :pid => m.patch_id, :only_path => false) %><% else %><%=h url_for(:controller => :issue, :action => :diff2, :id => m.issue_id, :psid => "#{m.patchset_right_id}:#{m.patchset_left_id}", :pid => m.patch_right_id, :only_path => false) %><% end %>
+File <%=h delta ? m.patch_left.filename : m.patch.filename %> (<%= m.side == 'a' ? 'left' : 'right' %>):<% end %>
+  <% code = (m.side == 'a') ? 'oldcode' : 'newcode' %>
+<% unless delta %><%=h url_for(:controller => :issue, :action => :diff, :id => m.issue_id, :psid => m.patchset_id, :pid => m.patch_id, :anchor => "#{code}#{m.line}", :only_path => false) %><% else %><%=h url_for(:controller => :issue, :action => :diff2, :id => m.issue_id, :psid => "#{m.patchset_right_id}:#{m.patchset_left_id}", :pid => m.patch_right_id, :anchor => "#{code}#{m.line}", :only_path => false) %><% end %>
+Line <%= m.line %>: <%= m.code %>
+<%= m.text %><% old_patch_id = current_id
+     old_side     = m.side
+  %><% } %>

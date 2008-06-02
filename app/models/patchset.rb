@@ -11,7 +11,7 @@ class Patchset < ActiveRecord::Base
   has_many :comments
   
   def validate
-    if @data && self.url != ""
+    if @data && self.url.to_s != ""
       errors.add :data, _('You must specify either a URL or upload a file but not both')
     end
     unless @data || self.url

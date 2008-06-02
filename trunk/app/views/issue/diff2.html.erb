@@ -14,12 +14,17 @@ login_warned = false;
 <!-- Form used by in-line comment JS; XXX filled in by JS code -->
 <% form_tag({:controller => :issue, :action => :inline_draft}, :method => :post, :id => "dainlineform", :style => "display: none;") do %>
   <div class="comment-border" name="form-container">
+
     <%= hidden_field :comment, :snapshot %>
     <%= hidden_field :comment, :line %>
     <%= hidden_field :comment, :side %>
+    
+    <%= hidden_field :comment, :patchset_left_id %>
+    <%= hidden_field :comment, :patch_left_id %>
+    <%= hidden_field :comment, :patchset_right_id %>
+    <%= hidden_field :comment, :patch_right_id %>
+    
     <%= hidden_field :issue, :id %>
-    <%= hidden_field :patchset, :id %>
-    <%= hidden_field :patch, :id %>
     <%= text_area :comment, :text, :cols => 60, :rows => 5 %>
     <br>
 
@@ -107,7 +112,7 @@ use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :p
 <table border="0" cellpadding="0" cellspacing="0" id="thecode"
        ondblclick="M_handleTableDblClick(event)">
 
-<tr><th>OLD</th><th>NEW</th></tr>
+<tr><th>LEFT</th><th>RIGHT</th></tr>
 
 <% 
    old_lineno = 1
@@ -140,7 +145,7 @@ use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :p
   <% new_lineno += 1 if up_new %>
   <% } %>
 
-<tr><th>OLD</th><th>NEW</th></tr>
+<tr><th>LEFT</th><th>RIGHT</th></tr>
 
 </table>
 

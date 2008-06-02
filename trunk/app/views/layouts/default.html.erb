@@ -31,7 +31,7 @@
 <% if logged_in? %>
   <%= link_to _("Sign out"), :controller => :account, :action => :logout %>
 <% else %>
-  <%= link_to _("Sign in"), :controller => :account, :action => :login %>
+  <%= link_to _("Sign in"), :controller => :account, :action => :login %><%= _(" or ")%><%= link_to _("Sign up"), :controller => :account, :action => :signup %>
 <% end %>
 </div>
 <hr />
@@ -45,7 +45,10 @@
 <%= link_to _("Recent Issues"), {:controller => :issue, :action => :all}, :class => 'novisit' %>
 |
 <%= link_to _("Repositories"), {:controller => :issue, :action => :repos}, :class => 'novisit' %>
-
+<% unless logged_in? %>
+|
+<%= link_to _("Sign in"), :controller => :account, :action => :login %> <%=h _(" with your account to create issues and add comments")%>
+<% end %>
 </div>
 <hr />
 

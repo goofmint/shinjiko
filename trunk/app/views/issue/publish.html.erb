@@ -1,0 +1,47 @@
+<h2>Publish + Mail Draft Comments</h2>
+
+<% form_tag(:controller => :issue, :action => :publish) do %>
+  <table>
+    <tr>
+      <th>
+	<label for="id_subject">Subject:</label>
+      </th>
+      <td>
+	<%= text_field :message, :subject, :size => 60 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_reviewers">Reviewers:</label>
+      </th>
+      <td>
+	<%= text_field :message, :reviewer_string, :maxlength => 1000, :size => 60 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_send_mail">Send mail:</label>
+      </th>
+      <td>
+	<%= check_box :message, :sendmail %>
+    </td>
+    </tr>
+    <tr>
+      <th>
+	<label for="id_message">Message:</label>
+      </th>
+      <td>
+	<%= text_area :message, :message, :cols => 60, :rows => 10 %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<%= submit_tag _("Publish All My Drafts") %>
+      </td>
+      <td>
+	<i>The message will be included in the email sent (if any).</i>
+      </td>
+    </tr>
+  </table>
+<% end %>
+

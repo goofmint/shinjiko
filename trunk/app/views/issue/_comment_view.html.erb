@@ -1,7 +1,7 @@
 <% @comment = comment %>
 <div class="comment-border " name="comment-border">
   <div class="inline-comment-title" onclick="M_switchInlineComment(<%= @comment.id %>, <%= @comment.line %>, '<%= @comment.side %>')">
-    <b>(Draft)</b>
+    <b><%=h @comment.draft == 1 ? '(Draft)' : '' %></b>
     <%= @comment.created_at %>
     <span id="inline-preview-<%= "#{@comment.id}-#{@comment.line}-#{@comment.side}" %>" class="extra" name="inline-preview" style="visibility: hidden"><%= @comment.text.split(//)[0,10].join %></span>
   </div>

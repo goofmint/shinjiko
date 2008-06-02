@@ -600,8 +600,8 @@ function M_replyToComment(author, written_time, ccs, cid, prefix, opt_lineno,
   form.reply_to.value = cid;
   form.ccs.value = ccs;
   if (typeof opt_lineno != 'undefined' && typeof opt_snapshot != 'undefined') {
-      document.getElementById("comment_line").value = opt_lineno;
-      document.getElementById("comment_snapshot").value = opt_snapshot;
+      form.comment_line.value = opt_lineno;
+      form.comment_snapshot.value = opt_snapshot;
   }
   form.comment_text.value = "On " + written_time + ", " + author + " wrote:\n";
   var divs = document.getElementsByName("comment-text-" + cid);
@@ -779,7 +779,7 @@ function M_createInlineComment(lineno, side) {
   } else {
     form.comment_snapshot.value = old_snapshot;
   }
-  document.getElementById("comment_side").value = side;
+  form.comment_side.value = side;
   var savedDraftKey = "new-" + form.comment_line.value + "-" + form.comment_snapshot.value;
   M_restoreDraftText_(savedDraftKey, form);
   form.comment_text.focus();

@@ -62,11 +62,14 @@
 	<td>
 	  <%= link_to p.filename,{:controller => :issue, :action => :patch, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
 	</td>
-	<td>1 chunk</td>
+	<td><%= p.chunk %> chunk</td>
 	<td><%= p.text.split(/\r\n|\r|\n/).size %> lines</td>
 	<td>
 	  <b>
 	      <%= link_to _("%{count} comments") % {:count => p.comment_count.to_i}, {:controller => :issue, :action => :diff, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
+	      <% if p.draft_comment(self.current_user) && p.draft_comment(self.current_user) != 0 %>
+	        <span style="color:red">+ <%= p.draft_comment self.current_user %> drafts</span>
+	      <% end %>
 	  </b>
 	</td>
 	<td>
@@ -76,7 +79,7 @@
 	       j += 1
 	       next if tmp.id == ps.id
 	    %>
-	      <% link_to _("delta from patch set %{set}") % {:set => j}, :controller => :issue, :action => :diff2, :id => @issue.id, :psid => "#{ps.id}:#{tmp.id}", :pid => p.id %> 
+	      <%= link_to _("delta from patch set %{set}") % {:set => j}, :controller => :issue, :action => :diff2, :id => @issue.id, :psid => "#{ps.id}:#{tmp.id}", :pid => p.id %> 
 	    <% } %>
 	  <% end %>
 	</td>

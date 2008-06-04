@@ -2,10 +2,17 @@ require 'diff/lcs'
 require 'diff/lcs/hunk'
 
 class IssueController < ApplicationController
-  before_filter :login_required, :except => [:index]
+  before_filter :login_required, :except => [:all]
   layout 'default'
   
   def index
+    
+  end
+  
+  def all
+    @issues = Issue.paginate(:page => params[:page],
+                         :order => "updated_at desc",
+                         :per_page => 10)
   end
   
   def patch
@@ -151,7 +158,7 @@ class IssueController < ApplicationController
   end
   
   def edit
-    @issue = Issue.find params[:id]
+    @issue = Issue.find :first, :conditions => ['issues.id = ?', params[:id]]
     return render (:status => 404, :text => _("No issue exists with that id (%{issue})") % { :issue => params[:id]}) unless @issue
     @patchset = @issue.patchsets.first
     return render unless request.post?
@@ -161,12 +168,12 @@ class IssueController < ApplicationController
   end
   
   def view
-    @issue = Issue.find params[:id]
+    @issue = Issue.find :first, :conditions => ['issues.id = ?', params[:id]]
     return render (:status => 404, :text => _("No issue exists with that id (%{issue})") % { :issue => params[:id]}) unless @issue
   end
   
   def publish
-    @issue = Issue.find params[:id]
+    @issue = Issue.find :first, :conditions => ['issues.id = ?', params[:id]]
     return render (:status => 404, :text => _("No issue exists with that id (%{issue})") % { :issue => params[:id]}) unless @issue
     unless request.post?
       @message = Message.new :subject => @issue.subject, :reviewer_string => @issue.reviewer_string, :sendmail => 1
@@ -183,10 +190,10 @@ class IssueController < ApplicationController
     @message.user = self.current_user
     # All comments will be public
     Comment.update_all 'draft = 0', ['user_id = ? and issue_id and draft = 1', self.current_user.id]
-    @issue.reviewers << self.current_user if @issue.reviewers.count(:conditions => ['user_id = ?', self.current_user.id]) == 0 && @issue.user_id != self.current_user.id
-    @issue.reviewer_string = @issue.reviewers.map(&:login)
+    @issue.reviewer_string += "," + self.current_user.login
     @issue.comment_count = 0 unless @issue.comment_count
     @issue.comment_count += @comments.length
+    return render unless @issue.save
     @comments.each { |c|
       if c.patch_left_id
         # delta
@@ -204,6 +211,9 @@ class IssueController < ApplicationController
       end
     }
     return render unless @message.save
+    if @message.sendmail == 1
+      PublishComment.deliver_sendmail(:to => 'admin@moongift.jp', :bcc => @issue.reviewers_email_address, :messages => @message.message)
+    end
     redirect_to :controller => :issue, :action => :view, :id => @issue.id
   end
   

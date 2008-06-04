@@ -9,7 +9,7 @@
 <%= text_area :issue, :description, :rows => 10, :cols => 60 %>
 </td></tr>
 <tr><th><label for="id_branch">SVN base:</label></th><td>
-<%= select :patchset, :branch_id, Branch.find(:all, :order => 'id').collect{|b| [b.name, b.id]}, {:include_blank => true} %>
+<%= select :patchset, :branch_id, Branch.find(:all, :order => 'branches.id', :include => [:repository, :category]).collect{|b| ["#{b.repository.name} - #{b.category.name} - #{b.name}", b.id]}, {:include_blank => true} %>
 </td></tr>
 <tr><th><label for="id_base">Base:</label></th><td>
 <%= text_field :issue, :base, :size => 60, :maxlength => 1000 %>

@@ -1,7 +1,141 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+--- 
+patch_00004: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 4
+  filename: app/models/user.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00005: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 5
+  filename: app/models/issue.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00006: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 6
+  filename: app/models/reviewer.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+patch_00007: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 7
+  filename: app/models/members.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00008: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 8
+  filename: app/controllers/issue_controller.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00010: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 10
+  filename: config/database.yml
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00009: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 9
+  filename: app/views/layouts/default.html.erb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00011: 
+  updated_at: 2008-06-04 15:00:57 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 11
+  filename: db/schema.rb
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00012: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 12
+  filename: db/development.sqlite3
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00001: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 1
+  filename: test/unit/member_test.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00002: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 2
+  filename: test/unit/reviewer_test.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00013: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 13
+  filename: db/migrate/003_create_members.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00014: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 14
+  filename: db/migrate/003_create_reviewers.rb
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00
+patch_00003: 
+  updated_at: 2008-06-04 15:00:44 +09:00
+  patchset_id: 1
+  comment_count: 
+  issue_id: 1
+  id: 3
+  filename: test/fixtures/issues.yml
+  content: 
+  parent_id: 1
+  created_at: 2008-06-04 15:00:44 +09:00

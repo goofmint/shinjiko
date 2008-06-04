@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Be sure to restart your server when you modify this file
 
 # Uncomment below to force Rails into production mode when
@@ -57,3 +58,6 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 end
+
+require 'will_paginate'
+require 'smtp_tls'

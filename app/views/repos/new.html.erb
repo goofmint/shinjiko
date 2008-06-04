@@ -1,0 +1,19 @@
+<h2>Create New Repository</h2>
+
+<% form_tag(:controller => :repos, :action => :new) do %>
+
+<table>
+<tr><th>
+    <label for="id_name">Name:</label>
+</th><td>
+<%= text_field :repository, :name %>
+</td></tr>
+<tr><th><label for="id_url">Url:</label></th><td>
+<%= text_field :repository, :uri %>
+</td></tr>
+<tr><td>
+    <%= submit_tag _("Create Repository") %>
+</td></tr>
+</table>
+<% end %>
+

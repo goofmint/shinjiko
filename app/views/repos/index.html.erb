@@ -1,0 +1,14 @@
+<h2>Repositories and Branches</h2>
+
+<% if logged_in? %>
+<p>(<%= link_to _("Add Repository"), :controller => :repos, :action => :new %>)</p>
+<% end %>
+
+<% Repository.find(:all, :order => 'repositories.id, branches.id', :include => [:branches]).each {|repos|%>
+  <h3>Repository: <%=h repos.name %></h3>
+  <p>(<%= link_to _("add branch"), :controller => :branch, :action => :new, :id => repos.id %>)</p>
+  <% repos.branches.each {|b| %>
+    <%=h b.category.name %> <%=h b.name %> <%=h b.uri %> &nbsp; (<%= link_to _("edit"), :controller => :branch, :action => :edit, :id => b.id %>)
+    <br>
+  <% } %>
+<% } %>

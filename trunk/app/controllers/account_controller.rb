@@ -6,6 +6,11 @@ class AccountController < ApplicationController
     redirect_to(:action => 'signup') unless logged_in? || User.count > 0
   end
   
+  def lang
+    cookies[:lang] = params[:id]
+    redirect_to :back
+  end
+  
   def api_login
     return render(:status => 401, :text => _('Invalid request')) unless request.post?
     self.current_user = User.authenticate(params[:Email], params[:Passwd])

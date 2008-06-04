@@ -33,9 +33,11 @@
 <% else %>
   <%= link_to _("Sign in"), :controller => :account, :action => :login %><%= _(" or ")%><%= link_to _("Sign up"), :controller => :account, :action => :signup %>
 <% end %>
+|
+<%= _("Lang") %>(<%= link_to _("En"), :controller => :account, :action => :lang, :id => 'en' %>|
+<%= link_to _("Ja"), :controller => :account, :action => :lang, :id => 'ja' %>)
 </div>
 <hr />
-<div class="counter">(xx)</div>
 <div>
 
 <%= link_to _("Create Issue"), {:controller => :issue, :action => :new}, :class => 'novisit' %>

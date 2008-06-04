@@ -56,7 +56,7 @@ class Patch < ActiveRecord::Base
         elsif [" ", "-", "+"].index tag
           raw_chunk << [tag, rest]
         else
-          logger.debug("%s:%d: indecypherable input: %r" % [name, lineno, __LINE__])
+          #logger.debug("%s:%d: indecypherable input: %r" % [name, lineno, __LINE__])
           break if chunks || raw_chunk
           return nil
         end
@@ -73,7 +73,7 @@ class Patch < ActiveRecord::Base
       old_i, old_j = old_range
       new_i, new_j = new_range
       if old_chunk.length != old_j - old_i || new_chunk.length != new_j - new_i
-        logger.debug("Length:#{old_chunk.length} #{old_j} #{old_i}")
+        # logger.debug("Length:#{old_chunk.length} #{old_j} #{old_i}")
         logger.debug("%s:%s:1: previous chunk has incorrect length" % [name, lineno])
         raw_chunk.each { |tag, rest|
           logger.debug("#{tag} #{rest}")

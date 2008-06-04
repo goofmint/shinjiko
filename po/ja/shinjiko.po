@@ -1,0 +1,639 @@
+# Japanese translations for PACKAGE package
+# PACKAGE パッケージに対する英訳.
+# Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 中津川 篤司 <>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Shinjiko 1.0.0\n"
+"POT-Creation-Date: 2008-06-04 23:16+0900\n"
+"PO-Revision-Date: 2008-06-04 23:29+0900\n"
+"Last-Translator: 中津川 篤司 <>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:15
+msgid "Invalid request"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:21
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:28
+msgid "Message=Authorization failed"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/branch_controller.rb:7
+msgid "No repository found."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:20
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:31
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:49
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:97
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:106
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:110
+msgid "Patch is not found."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:44
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:82
+msgid "Invalid file type."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:57
+msgid "Another patch is not found."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:62
+msgid "This patch is not valid."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:86
+msgid "You have to log in for comment."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:115
+msgid "Comment is not found"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:137
+msgid "Comment save failed."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:162
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:172
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:177
+msgid "No issue exists with that id (%{issue})"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:222
+msgid "Patchset is not found"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/upload_controller.rb:12
+msgid "Issue is not found."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/api.rb:-
+msgid "api"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/api.rb:-
+msgid "Api|Session"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/api.rb:-
+msgid "Api|Cookie"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/api.rb:-
+msgid "Api|User"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/api.rb:-
+msgid "Api|Expired at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/api.rb:-
+msgid "Api|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/api.rb:-
+msgid "Api|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/branch.rb:-
+msgid "branch"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/branch.rb:-
+msgid "Branch|Repository"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/branch.rb:-
+msgid "Branch|Category"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/branch.rb:-
+msgid "Branch|Name"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/branch.rb:-
+msgid "Branch|Uri"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/branch.rb:-
+msgid "Branch|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/branch.rb:-
+msgid "Branch|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/category.rb:-
+msgid "category"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/category.rb:-
+msgid "Category|Name"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/category.rb:-
+msgid "Category|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/category.rb:-
+msgid "Category|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "comment"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|User"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Patchset"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Patch"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Line"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Draft"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Parent"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Patchset left"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Patch left"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Patchset right"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Patch right"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Side"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Snapshot"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|File"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Text"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/comment.rb:-
+msgid "Comment|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Subject"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Reviewer string"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Description"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Base"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|User"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Closed"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Comment count"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:-
+msgid "Issue|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:31
+msgid "Invalid user name: %{user}"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/issue.rb:39
+msgid "You must specify a base %{base}"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/member.rb:-
+msgid "member"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/member.rb:-
+msgid "Member|Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/member.rb:-
+msgid "Member|User"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/member.rb:-
+msgid "Member|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/member.rb:-
+msgid "Member|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "message"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|User"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|Sendmail"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|Subject"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|Reviewer string"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|Message"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/message.rb:-
+msgid "Message|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "patch"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Patchset"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Parent"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Comment count"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Text"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Content"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Filename"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patch.rb:-
+msgid "Patch|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "patchset"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Branch"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|User"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Parrent"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Comment count"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|File"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Message"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Base"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Url"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:-
+msgid "Patchset|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:16
+msgid "You must specify either a URL or upload a file but not both"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:19
+msgid "You must specify a URL or upload a file"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:25
+msgid "Invalid URL"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/patchset.rb:31
+msgid "HTTP status code %{code}"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/publish_comment.rb:5
+msgid "[Shinji-ko] Publish comment"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/repository.rb:-
+msgid "repository"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/repository.rb:-
+msgid "Repository|Name"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/repository.rb:-
+msgid "Repository|Uri"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/repository.rb:-
+msgid "Repository|User"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/repository.rb:-
+msgid "Repository|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/repository.rb:-
+msgid "Repository|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Login"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Email"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Crypted password"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Salt"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Created at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Updated at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Remember token"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
+msgid "User|Remember token expires at"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/edit.html.erb:7
+msgid "Update Branch"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/new.html.erb:7
+msgid "Create Branch"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:9
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:48
+msgid "&#171; Previous"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:9
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:48
+msgid "Next &#187;"
+msgstr "次ページ &#187;"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:70
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:75
+msgid "View unified diff"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:87
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:99
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:92
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:104
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:7
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:26
+msgid "Publish+Mail Comments"
+msgstr "コメントを公開＋メールする"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/edit.html.erb:55
+msgid "Update Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/edit.html.erb:72
+msgid "Delete Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:27
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:43
+msgid "Create Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/patch.html.erb:47
+msgid "  View side-by-side diff with inline comments"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/publish.html.erb:39
+msgid "Publish All My Drafts"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:22
+msgid "Edit Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:29
+msgid "Start Review"
+msgstr "レビューの開始"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:60
+msgid "Download raw patch set"
+msgstr "パッチをダウンロードする"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:77
+msgid "%{count} comment"
+msgid_plural "%{count} comments"
+msgstr[0] "%{count} コメント"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:90
+msgid "delta from patch set %{set}"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:105
+msgid "Add Another Patch Set"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:134
+msgid "Add Patch Set"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:32
+msgid "Sign out"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:34
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:52
+msgid "Sign in"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:34
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:52
+msgid " or "
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:34
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:52
+msgid "Sign up"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:37
+msgid "Lang"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:37
+msgid "En"
+msgstr "英語"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:38
+msgid "Ja"
+msgstr "日本語"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:45
+msgid "My Issues"
+msgstr "私の問題"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:47
+msgid "Recent Issues"
+msgstr "最近登録された問題"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:49
+msgid "Repositories"
+msgstr "リポジトリ"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:52
+msgid " with your account to create issues and add comments"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:4
+msgid "Add Repository"
+msgstr "リポジトリの追加"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:9
+msgid "add branch"
+msgstr "ブランチの追加"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:11
+msgid "edit"
+msgstr "編集"
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/new.html.erb:15
+msgid "Create Repository"
+msgstr "リポジトリの作成"

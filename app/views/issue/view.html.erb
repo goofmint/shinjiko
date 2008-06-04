@@ -26,7 +26,7 @@ Drafts are not viewable by others; use
   <%= link_to _("Publish+Mail Comments"), {:controller => :issue, :action => :publish, :id => @issue.id}, :class => 'novisit' %>
   
   |
-  <%= link_to _("<b>Start Review</b>"), {:controller => :issue, :action => :diff, :id => @issue.id, :psid => @issue.patchsets.first.id, :pid => @issue.patchsets.first.patches.first.id}, :class => 'novisit' %>
+  <strong><%= link_to _("Start Review"), {:controller => :issue, :action => :diff, :id => @issue.id, :psid => @issue.patchsets.first.id, :pid => @issue.patchsets.first.patches.first.id}, :class => 'novisit' %></strong>
 </div>
 </div>
 
@@ -70,11 +70,11 @@ Drafts are not viewable by others; use
 	<td>
 	  <%= link_to p.filename,{:controller => :issue, :action => :patch, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
 	</td>
-	<td><%= p.chunk %> chunk</td>
+	<td><%= p.chunk.to_s %> chunk</td>
 	<td><%= p.text.split(/\r\n|\r|\n/).size %> lines</td>
 	<td>
 	  <b>
-	      <%= link_to _("%{count} comments") % {:count => p.comment_count.to_i}, {:controller => :issue, :action => :diff, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
+	      <%= link_to n_("%{count} comment", "%{count} comments", p.comment_count.to_i) % {:count => p.comment_count.to_i}, {:controller => :issue, :action => :diff, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
 	      <% if p.draft_comment(self.current_user) && p.draft_comment(self.current_user) != 0 %>
 	        <span style="color:red">+ <%= p.draft_comment self.current_user %> drafts</span>
 	      <% end %>

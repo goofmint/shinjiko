@@ -1,0 +1,27 @@
+class IssueController < ApplicationController
+  before_filter :login_required, :except => [:index]
+  layout 'default'
+  def index
+  end
+  
+  def new
+    return render unless request.post?
+    issue = Issue.new params[:issue]
+    issue.user = self.current_user
+    unless issue.save
+      return render
+    end
+    data = params[:data] ? params[:data].read : nil
+    patchset = Patchset.new params[:patchset]
+    patchset.issue = issue
+    patchset.data  = data
+    unless patchset.save
+      return render
+    end
+    redirect_to :controller => :issue, :action => :index
+  end
+  
+  def view
+    @issue = Issue.find params[:id]
+  end
+end

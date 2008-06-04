@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :comments
   
+  has_many :members
+  has_many :reviews, :through => :members, :source => :issue
+  
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt

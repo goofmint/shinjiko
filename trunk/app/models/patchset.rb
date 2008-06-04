@@ -6,6 +6,7 @@ class Patchset < ActiveRecord::Base
   has_many :patches
   has_many :childs, :class_name => 'Patch', :foreign_key => :parent_id
   belongs_to :issue
+  belongs_to :branch
   belongs_to :owner, :class_name => 'User', :foreign_key => :user_id
   belongs_to :parrent, :class_name => 'Issue', :foreign_key => :parrent_id
   has_many :comments

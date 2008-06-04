@@ -1,0 +1,53 @@
+<h2>Recent Issues</h2>
+
+<table id="queues">
+
+<tr><td colspan="7"></td></tr>
+
+<tr>
+  <td colspan="7" align="right">
+  <%= will_paginate @issues, :prev_label => _('&#171; Previous'), :next_label => _('Next &#187;') %> 
+  </td>
+</tr>
+
+<tr align="left">
+  <th>Id</th>
+
+  <th>Subject</th>
+  <th>Owner</th>
+  <th>Reviewers</th>
+  <th>Comments</th>
+  <th>Drafts (mine)</th>
+  <th>Last update</th>
+
+</tr>
+
+<% @issues.each {|i| %>
+  <% draft = i.comments.count(:conditions => ['draft = 1 and comments.user_id = ?', (logged_in? ? 0 : self.current_user.id)]) %>
+  <tr <%= draft > 0 ? 'style="color:red"' : '' %>>
+    <td align="right"><div class="subject"><%= i.id %></td>
+    <td><div class="subject">
+	<%= link_to i.subject,{:controller => :issue, :action => :view, :id => i.id}, :class => "noul" %>
+    </div></td>
+    <td>
+      <div class="users"><%= (logged_in? && i.user_id == self.current_user.id) ? "me" : i.user.login %></div></td>
+    <td><div class="users">
+	<%=h i.reviewer_string %>
+    </div></td>
+    <td align="center">
+      <%=h i.comment_count %>
+    </td>
+    <td align="center"><b><%= draft %></b></td>
+    <td><div class="date"><%= timeago i.updated_at %></div></td>
+  </tr>
+<% } %>
+
+
+<tr>
+  <td colspan="7" align="right">
+  <%= will_paginate @issues, :prev_label => _('&#171; Previous'), :next_label => _('Next &#187;') %> 
+  </td>
+</tr>
+
+
+</table>

@@ -15,7 +15,7 @@ Drafts are not viewable by others; use
   <b><%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %></b>;
   <i>Last updated:</i> <%=h timeago @issue.updated_at %>
 </div>
-<div><i>SVN Base:</i> <%=h @issue.base %></div>
+<div><i>SVN Base:</i> <%=h @issue.repo_url %></div>
 
 <div><i>Reviewers:</i> <%=h @issue.reviewer_string %></div>
 <div>

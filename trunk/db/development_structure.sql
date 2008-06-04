@@ -1,12 +1,138 @@
-CREATE TABLE apis ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "session" varchar(255) DEFAULT NULL, "cookie" varchar(255) DEFAULT NULL, "user_id" integer DEFAULT NULL, "expired_at" datetime DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE branches ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "repository_id" integer DEFAULT NULL, "category_id" integer DEFAULT NULL, "name" varchar(255) DEFAULT NULL, "uri" varchar(255) DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE comments ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer DEFAULT NULL, "issue_id" integer DEFAULT NULL, "patchset_id" integer DEFAULT NULL, "patch_id" integer DEFAULT NULL, "line" integer DEFAULT NULL, "draft" integer DEFAULT NULL, "parrent_id" integer DEFAULT NULL, "text" text DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE issues ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "subject" varchar(255) DEFAULT NULL, "reviewer_string" text DEFAULT NULL, "description" text DEFAULT NULL, "base" text DEFAULT NULL, "user_id" integer DEFAULT NULL, "closed" integer DEFAULT NULL, "comment_count" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE messages ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "issue_id" integer DEFAULT NULL, "user_id" integer DEFAULT NULL, "sendmail" integer DEFAULT NULL, "subject" varchar(255) DEFAULT NULL, "reviewer_string" varchar(255) DEFAULT NULL, "message" text DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE patches ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "patchset_id" integer DEFAULT NULL, "parent_id" integer DEFAULT NULL, "issue_id" integer DEFAULT NULL, "comment_count" integer DEFAULT NULL, "text" text DEFAULT NULL, "content" text DEFAULT NULL, "filename" varchar(255) DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE patchsets ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "issue_id" integer DEFAULT NULL, "branch_id" integer DEFAULT NULL, "user_id" integer DEFAULT NULL, "parrent_id" integer DEFAULT NULL, "comment_count" integer DEFAULT NULL, "file" text DEFAULT NULL, "message" text DEFAULT NULL, "base" text DEFAULT NULL, "url" varchar(255) DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE repositories ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL, "uri" varchar(255) DEFAULT NULL, "user_id" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE reviewers ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "issue_id" integer DEFAULT NULL, "user_id" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL);
-CREATE TABLE schema_info (version integer);
-CREATE TABLE users ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "login" varchar(255) DEFAULT NULL, "email" varchar(255) DEFAULT NULL, "crypted_password" varchar(40) DEFAULT NULL, "salt" varchar(40) DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL, "remember_token" varchar(255) DEFAULT NULL, "remember_token_expires_at" datetime DEFAULT NULL);
-INSERT INTO schema_info (version) VALUES (10)
+CREATE TABLE `apis` (
+  `id` int(11) NOT NULL auto_increment,
+  `session` varchar(255) default NULL,
+  `cookie` varchar(255) default NULL,
+  `user_id` int(11) default NULL,
+  `expired_at` datetime default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `branches` (
+  `id` int(11) NOT NULL auto_increment,
+  `repository_id` int(11) default NULL,
+  `category_id` int(11) default NULL,
+  `name` varchar(255) default NULL,
+  `uri` varchar(255) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) default NULL,
+  `issue_id` int(11) default NULL,
+  `patchset_id` int(11) default NULL,
+  `patch_id` int(11) default NULL,
+  `line` int(11) default NULL,
+  `draft` int(11) default NULL,
+  `parent_id` int(11) default NULL,
+  `patchset_left_id` int(11) default NULL,
+  `patch_left_id` int(11) default NULL,
+  `patchset_right_id` int(11) default NULL,
+  `patch_right_id` int(11) default NULL,
+  `side` varchar(255) default NULL,
+  `snapshot` varchar(255) default NULL,
+  `file` varchar(255) default NULL,
+  `text` text,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `issues` (
+  `id` int(11) NOT NULL auto_increment,
+  `subject` varchar(255) default NULL,
+  `reviewer_string` text,
+  `description` text,
+  `base` text,
+  `user_id` int(11) default NULL,
+  `closed` int(11) default NULL,
+  `comment_count` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL auto_increment,
+  `issue_id` int(11) default NULL,
+  `user_id` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL auto_increment,
+  `issue_id` int(11) default NULL,
+  `user_id` int(11) default NULL,
+  `sendmail` int(11) default NULL,
+  `subject` varchar(255) default NULL,
+  `reviewer_string` varchar(255) default NULL,
+  `message` text,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `patches` (
+  `id` int(11) NOT NULL auto_increment,
+  `patchset_id` int(11) default NULL,
+  `parent_id` int(11) default NULL,
+  `issue_id` int(11) default NULL,
+  `comment_count` int(11) default NULL,
+  `text` text,
+  `content` text,
+  `filename` varchar(255) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `patchsets` (
+  `id` int(11) NOT NULL auto_increment,
+  `issue_id` int(11) default NULL,
+  `branch_id` int(11) default NULL,
+  `user_id` int(11) default NULL,
+  `parrent_id` int(11) default NULL,
+  `comment_count` int(11) default NULL,
+  `file` text,
+  `message` text,
+  `base` text,
+  `url` varchar(255) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `repositories` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `uri` varchar(255) default NULL,
+  `user_id` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `schema_info` (
+  `version` int(11) default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL auto_increment,
+  `login` varchar(255) default NULL,
+  `email` varchar(255) default NULL,
+  `crypted_password` varchar(40) default NULL,
+  `salt` varchar(40) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `remember_token` varchar(255) default NULL,
+  `remember_token_expires_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+INSERT INTO `schema_info` (version) VALUES (10)

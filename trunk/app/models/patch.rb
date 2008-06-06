@@ -89,23 +89,41 @@ class Patch < ActiveRecord::Base
   
   def application_patch(chunks = nil)
     chunks = self.parse unless chunks
-    logger.debug "chunk #{chunks}"
+    # logger.debug "chunk #{chunks}"
+    logger.debug "chunk"
+    chunks.each {|old_range, new_range, chunk|
+      chunk.each { |c|
+        logger.debug "#{c[0]} #{c[1]}"
+      }
+    }
     return nil unless chunks
     content = self.get_content
     return nil unless content
     old_file = content.split(/\r\n|\r|\n/)
     new_file = content.split(/\r\n|\r|\n/)
-    old_file << "" if old_file[-1] != ""
-    new_file << "" if new_file[-1] != ""
+    # old_file << "" if old_file[-1] != ""
+    # new_file << "" if new_file[-1] != ""
     diff_line_count = 0
     chunks.each {|old_range, new_range, chunk|
       count = 0
       new_range[0] += diff_line_count
       old_range[1] += diff_line_count
       new_range[1] += diff_line_count
-      for i in new_range[0]..[old_range[1], new_range[1]].max
+      logger.debug "#{new_range[0]} to #{(new_range[0] + chunk.size)}"
+      chunk.each { |c|
+        logger.debug "diff #{c[0]} #{c[1]}"
+      }
+      t = 0
+      new_file.each { |l|
+        t += 1
+        logger.debug "new #{t} #{l}"
+      }
+      
+      for i in new_range[0]..(new_range[0] + chunk.size)
         break unless chunk[count]
-        new_file[i] = nil if chunk[count][0] == "-"
+        if chunk[count][0] == "-"
+          new_file[i] = nil
+        end
         if chunk[count][0] == "+"
           old_file = old_file[0..(i-1)] + [nil] + (old_file[i..-1] || [])
           new_file = new_file[0..(i-1)] + [chunk[count][1]] + (new_file[i..-1] || [])
@@ -117,7 +135,48 @@ class Patch < ActiveRecord::Base
       new_file.each{ |l|
         new_line_count += 1 unless l.nil?
       }
-      diff_line_count += old_line_count - new_line_count
+      diff_line_count = old_line_count - new_line_count
+    }
+    empty_line_old = []
+    empty_line_new = []
+    really_erase_line_new = []
+    really_erase_line_old = []
+    line = -1
+    old_file.each {|str|
+      line += 1
+      new_str = new_file[line]
+      if str.nil? || new_str.nil?
+        empty_line_old << line unless str
+        empty_line_new << line unless new_file[line]
+        next
+      end
+      if empty_line_new.size == 0 || empty_line_old.size == 0
+        empty_line_old = []
+        empty_line_new = []
+        next
+      end
+      if empty_line_new.size == empty_line_old.size
+        really_erase_line_new += empty_line_new
+        really_erase_line_old += empty_line_old
+      elsif empty_line_new.size > empty_line_old.size
+        empty_line_old.size.times {|i|
+          really_erase_line_new << empty_line_new[i]
+        }
+        really_erase_line_old += empty_line_old
+      else
+        empty_line_new.size.times {|i|
+          really_erase_line_old << empty_line_old[i]
+        }
+        really_erase_line_new += empty_line_new
+      end
+      empty_line_old = []
+      empty_line_new = []
+    }
+    really_erase_line_new.reverse.each { |l|
+      new_file.delete_at l
+    }
+    really_erase_line_old.reverse.each { |l|
+      old_file.delete_at l
     }
     [old_file, new_file]
   end

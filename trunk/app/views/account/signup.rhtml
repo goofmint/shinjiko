@@ -1,16 +1,16 @@
 <%= error_messages_for :user %>
 <% form_for :user do |f| -%>
-<p><label for="login">Login</label><br/>
+<p><label for="login"><%=h _("Login")%><%=h _("(Only alphabets, number, dash and underline. 3 to 40 words.)")%></label><br/>
 <%= f.text_field :login %></p>
 
-<p><label for="email">Email</label><br/>
+<p><label for="email"><%=h _("Email")%><%=h _("(3 to 100 words)")%></label><br/>
 <%= f.text_field :email %></p>
 
-<p><label for="password">Password</label><br/>
+<p><label for="password"><%=h _("Password")%><%=h _("(4 to 40 words)")%></label><br/>
 <%= f.password_field :password %></p>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
+<p><label for="password_confirmation"><%=h _("Confirm Password")%><%=h _("(4 to 40 words)")%></label><br/>
 <%= f.password_field :password_confirmation %></p>
 
-<p><%= submit_tag 'Sign up' %></p>
+<p><%= submit_tag _('Sign up') %></p>
 <% end -%>

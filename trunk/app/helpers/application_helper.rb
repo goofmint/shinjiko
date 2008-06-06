@@ -26,9 +26,9 @@ module ApplicationHelper
     if delta_minutes.abs <= (8724*60) # eight weeks… I’m lazy to count days for longer than that
       distance = distance_of_time_in_words(delta_minutes);
       if delta_minutes < 0
-        "#{distance} from now"
+        _("%{distance} from now") % { :distance => distance}
       else
-        "#{distance} ago"
+        _("%{distance} ago") % { :distance => distance}
       end
     else
       return "on #{system_date.to_formatted_s(date_format)}"
@@ -37,20 +37,20 @@ module ApplicationHelper
 
   def distance_of_time_in_words(minutes)
     case
-      when minutes < 1
-        "less than a minute"
-      when minutes < 50
-        pluralize(minutes, "minute")
-      when minutes < 90
-        "about one hour"
-      when minutes < 1080
-        "#{(minutes / 60).round} hours"
-      when minutes < 1440
-        "one day"
-      when minutes < 2880
-        "about one day"
-      else
-        "#{(minutes / 1440).round} days"
+    when minutes < 1
+      _("less than a minute")
+    when minutes < 50
+      n_("%{minute} minute", "%{minute} minutes", minutes) % { :minutes => minutes}
+    when minutes < 90
+      "about one hour"
+    when minutes < 1080
+      n_("%{time} hour", "%{time} hours", (minutes / 60).round) % { :time => (minutes / 60).round}
+    when minutes < 1440
+      _("one day")
+    when minutes < 2880
+      _("about one day")
+    else
+      n_("%{day} day", "%{day} days", (minutes / 1440).round) % { :day => (minutes / 1440).round}
     end
   end
   

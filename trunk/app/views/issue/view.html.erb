@@ -1,4 +1,4 @@
-<h2>Issue: <%=h @issue.subject %> </h2>
+<h2><%=h _("Issue: ")%><%=h @issue.subject %> </h2>
 
 <% if (comment_count = self.current_user.comments.count(:conditions => ['comments.issue_id = ? and draft = 1', @issue.id])) && comment_count != 0 %>
 <div class="error">You have <b><%=h comment_count %> draft</b>
@@ -11,13 +11,12 @@ Drafts are not viewable by others; use
 
 <div style="float: left; padding-right: 1em">
 <div>
-  <i>Created:</i> <%=h timeago @issue.created_at %> by
-  <b><%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %></b>;
-  <i>Last updated:</i> <%=h timeago @issue.updated_at %>
+  <i><%=h _("Created:")%></i> <%=h _("%{timeago} by %{user}") % {:timeago => timeago(@issue.created_at), :user => (logged_in? && @issue.user_id == self.current_user.id) ? _("me") : @issue.user.login} %>
+  <i><%=h _("Last updated:")%></i> <%=h timeago @issue.updated_at %>
 </div>
-<div><i>SVN Base:</i> <%=h @issue.repo_url %></div>
+<div><i><%=h _("SVN Base:") %></i> <%=h @issue.repo_url %></div>
 
-<div><i>Reviewers:</i> <%=h @issue.reviewer_string %></div>
+<div><i><%=h _("Reviewers:")%></i> <%=h @issue.reviewer_string %></div>
 <div>
   <%= link_to _("Edit Issue"), {:controller => :issue, :action => :edit, :id => @issue.id}, :class => 'novisit' %>
   
@@ -47,31 +46,32 @@ Drafts are not viewable by others; use
     <a id="ps-<%= ps.id %>-pointer"
        href="javascript:M_toggleSection('ps-<%= ps.id %>')"
        class="toggled-section">
-      Patch Set <%= i %>:<%=h ps.message %>
+      <%=h _("Patch Set %{number}") % {:number => i} %>:<%=h ps.message %>
     </a>
   </h3>
 
   <div>
-    <i>Total comments:</i> <%= ps.comment_count.to_i %>
+    <i><%=h _("Total comments:")%></i> <%= ps.comment_count.to_i %>
     <div id="ps-<%= ps.id %>" style="display:none"></div>
-    <i>Created:</i> <%=h timeago ps.created_at %>
+    <i><%=h _("Created:")%></i> <%=h timeago ps.created_at %>
   </div>
   <div>
     <%= link_to _("Download raw patch set"), :controller => :issue, :action => :download, :id => @issue.id, :psid => ps.id %>
   </div>
   <table id="queues">
     <tr>
-      <th>Raw unified diffs</th>
-      <th colspan="2">Stats</th>
-      <th>Side-by-side diffs with inline comments</th>
+      <th><%=h _("Raw unified diffs")%></th>
+      <th colspan="2"><%=h _("Stats")%></th>
+      <th><%=h _("Side-by-side diffs with inline comments")%></th>
     </tr>
     <% ps.patches.each {|p| %>
       <tr>
 	<td>
 	  <%= link_to p.filename,{:controller => :issue, :action => :patch, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>
 	</td>
-	<td><%= p.chunk.to_s %> chunk</td>
-	<td><%= p.text.split(/\r\n|\r|\n/).size %> lines</td>
+	<td><%= n_("%{chunk} chunk", "%{chunk} chunks", p.chunk) % {:chunk => p.chunk} %></td>
+	<% line = p.text.split(/\r\n|\r|\n/).size %>
+	<td><%= n_("%{line} line", "%{line} lines", line) % {:line => line} %></td>
 	<td>
 	  <b>
 	      <%= link_to n_("%{count} comment", "%{count} comments", p.comment_count.to_i) % {:count => p.comment_count.to_i}, {:controller => :issue, :action => :diff, :id => @issue.id, :psid => ps.id, :pid => p.id}, :class => "noul" %>

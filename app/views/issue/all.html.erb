@@ -1,4 +1,4 @@
-<h2>Recent Issues</h2>
+<h2><%=h _("Recent Issues")%></h2>
 
 <table id="queues">
 
@@ -11,14 +11,14 @@
 </tr>
 
 <tr align="left">
-  <th>Id</th>
+  <th><%=h _("Id")%></th>
 
-  <th>Subject</th>
-  <th>Owner</th>
-  <th>Reviewers</th>
-  <th>Comments</th>
-  <th>Drafts (mine)</th>
-  <th>Last update</th>
+  <th><%=h _("Subject")%></th>
+  <th><%=h _("Owner")%></th>
+  <th><%=h _("Reviewers")%></th>
+  <th><%=h _("Comments")%></th>
+  <th><%=h _("Drafts (mine)")%></th>
+  <th><%=h _("Last update")%></th>
 
 </tr>
 
@@ -30,7 +30,7 @@
 	<%= link_to i.subject,{:controller => :issue, :action => :view, :id => i.id}, :class => "noul" %>
     </div></td>
     <td>
-      <div class="users"><%= (logged_in? && i.user_id == self.current_user.id) ? "me" : i.user.login %></div></td>
+      <div class="users"><%= (logged_in? && i.user_id == self.current_user.id) ? _("me") : i.user.login %></div></td>
     <td><div class="users">
 	<%=h i.reviewer_string %>
     </div></td>

@@ -8,25 +8,23 @@
 </head>
 <body>
 <div align="right">
-<div style="float:left; font-weight:bold"><i>Rietveld</i> Code Review Tool</div>
+<div style="float:left; font-weight:bold"><%= _("<i>Shinji-ko</i> Code Review Tool")%></div>
 
 <% if logged_in? %>
   <b><%= "%{email} (%{login})" % {:email => self.current_user.email, :login => self.current_user.login} %></b>
   |
   <% unless self.current_user.login %>
-  <span style="color:red">Please choose your nickname with</span>
+    <span style="color:red"><%=h _("Please choose your nickname with")%></span>
   <% end %>
-  <a class="novisit" href="/settings">Settings</a>
+  <%= link_to _("Settings"),{:controller => :account, :action => :settings}, :class => "novisit" %>
 |
 <% end %>
-<a class="novisit" target="_blank"
-   href="http://code.google.com/p/rietveld/wiki/CodeReviewHelp">Help</a>
+
+  <%= link_to _("Help"),"http://code.google.com/p/shinjiko/wiki/CodeReviewHelp", :class => "novisit", :target => "_blank" %>
 |
-<a class="novisit" target="_blank"
-   href="http://code.google.com/p/rietveld/issues/list">Bug tracker</a>
+  <%= link_to _("Bug tracker"),"http://code.google.com/p/shinjiko/issues/list", :class => "novisit", :target => "_blank" %>
 |
-<a class="novisit" target="_blank"
-   href="http://groups.google.com/group/codereview-discuss">Discussion group</a>
+  <%= link_to _("Discussion group"),"http://groups.google.com/group/shinjiko-discuss", :class => "novisit", :target => "_blank" %>
 |
 <% if logged_in? %>
   <%= link_to _("Sign out"), :controller => :account, :action => :logout %>
@@ -49,7 +47,7 @@
 <%= link_to _("Repositories"), {:controller => :repos, :action => :index}, :class => 'novisit' %>
 <% unless logged_in? %>
 |
-<%= link_to _("Sign in"), :controller => :account, :action => :login %> <%=h _(" or ") %><%= link_to _("Sign up"), :controller => :account, :action => :signup %><%=h _(" with your account to create issues and add comments")%>
+<%= _("%{signin} or %{signup} with your account to create issues and add comments") % {:signin => link_to(_("Sign in"), :controller => :account, :action => :login), :signup => link_to(_("Sign up"), :controller => :account, :action => :signup)} %>
 <% end %>
 </div>
 <hr />
@@ -60,7 +58,7 @@
 </div>
 
 <p />
-<%= link_to image_tag("rails.png", :border => 0), "http://www.rubyonrails.org/", :alt => "Powered by Ruby on Rails" %>
+<%= link_to image_tag("rails.png", :border => 0), "http://www.rubyonrails.org/", :alt => _("Powered by Ruby on Rails") %>
 
 </body>
 </html>

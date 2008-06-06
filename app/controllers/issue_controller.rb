@@ -83,7 +83,7 @@ class IssueController < ApplicationController
   end
   
   def inline_draft
-    return render(:status => 403, :text => _("You have to log in for comment.")) unless logged_in?
+    return render(:status => 403, :text => _("You have to login for comment.")) unless logged_in?
     delta = params[:comment][:patchset_left_id] ? true : false
     if delta
       # Delta
@@ -190,6 +190,7 @@ class IssueController < ApplicationController
     @message.user = self.current_user
     # All comments will be public
     Comment.update_all 'draft = 0', ['user_id = ? and issue_id and draft = 1', self.current_user.id]
+    @issue.reviewer_string ||= ""
     @issue.reviewer_string += "," + self.current_user.login
     @issue.comment_count = 0 unless @issue.comment_count
     @issue.comment_count += @comments.length

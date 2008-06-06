@@ -32,7 +32,7 @@ login_warned = false;
 <% end %>
 <a id="resizer" style="display:none;cursor:pointer"><img src="/static/zippyplus.gif"></a>
 
-<h2>File: <%=h @patch.filename %></h2>
+<h2><%=h _("File: ")%><%=h @patch.filename %></h2>
 
 <div>
   <b>Issue:</b>
@@ -40,18 +40,18 @@ login_warned = false;
   ('u')
 </div>
 <div>
-  <i>Created:</i> <%= timeago @issue.created_at %> by <b><%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %></b>;
-  <i>Last updated:</i> <%= timeago @issue.updated_at %>
+  <i><%=h _("Created:")%></i> <%= timeago @issue.created_at %> by <b><%= (logged_in? && @issue.user_id == self.current_user.id) ? "me" : @issue.user.login %></b>;
+  <i><%=h _("Last updated:")%></i> <%= timeago @issue.updated_at %>
 </div>
 
-<div><i>SVN Base:</i> <%= @issue.base %></div>
-<div><i>Reviewers:</i> <%= @issue.reviewer_string %></div>
+<div><i><%=h _("SVN Base:")%></i> <%= @issue.base %></div>
+<div><i><%=h _("Reviewers:")%></i> <%= @issue.reviewer_string %></div>
 <div>
-  <b>Patch Set: <%= @patchset.message %></b>
+  <b><%=h _("Patch Set: ")%><%= @patchset.message %></b>
 </div>
 
 <div>
-  <i>Created:</i> <%= timeago @patchset.created_at %>
+  <i><%=h _("Created:")%></i> <%= timeago @patchset.created_at %>
 </div>
 
 <p>
@@ -87,12 +87,9 @@ Toggle Intra-line Diffs</a> ('i')
 <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :publish, :id => @issue.id}, :class => "novisit" %>
 </p>
 
-<h3>Side by Side Diff</h3>
+<h3><%=h _("Side by Side Diff")%></h3>
 
-<p><i>Use n/p to move between diff chunks;
-N/P to move between comments.
-
-Double-click a line to add a draft in-line comment.
+<p><i><%=h _("Use n/p to move between diff chunks;N/P to move between comments.Double-click a line to add a draft in-line comment.")%>
 <br>
 <% if logged_in? && Comment.count(:conditions => ['user_id = ? and draft = 1', self.current_user.id]) > 0 %>
 <span style="color:red">Draft comments are only viewable by you;</span>
@@ -107,7 +104,7 @@ use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :p
 <table border="0" cellpadding="0" cellspacing="0" id="thecode"
        ondblclick="M_handleTableDblClick(event)">
 
-<tr><th>OLD</th><th>NEW</th></tr>
+<tr><th><%=h _("OLD")%></th><th><%=h _("NEW")%></th></tr>
 
 <% 
    old_lineno = 1

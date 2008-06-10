@@ -1588,7 +1588,7 @@ M_HookState.prototype.gotoNextHook = function(opt_findComment) {
   } else if (this.hookPos == -2 &&
              (M_isElementVisible(this.win, diffs) ||
               M_getScrollTop(this.win) < M_getPageOffsetTop(diffs))) {
-    this.incrementHook_(findComment)
+      this.incrementHook_(findComment)
   } else if (this.hookPos < hooks.length || (this.hookPos >= hooks.length &&
              !M_isElementVisible(
                this.win, thecode.rows[thecode.rows.length - 1].cells[0]))) {

@@ -97,8 +97,8 @@ Toggle Intra-line Diffs</a> ('i')
 <p><i><%=h _("Use n/p to move between diff chunks;N/P to move between comments.Double-click a line to add a draft in-line comment.")%>
 <br>
 <% if logged_in? && Comment.count(:conditions => ['user_id = ? and draft = 1', self.current_user.id]) > 0 %>
-<span style="color:red"><%=h _("Draft comments are only viewable by you;")%></span>
-use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :publish, :id => @issue.id}, :class => "novisit" %> to let others view them.
+<span style="color:red"><%= _("Draft comments are only viewable by you.")%></span>
+<%= _("use %{publish} to let others view them.") % {:publish => link_to(_("Publish+Mail Comments"),{:controller => :issue, :action => :publish, :id => @issue.id}, :class => "novisit")} %>
 <% end %>
 </i></p>
 
@@ -119,7 +119,7 @@ use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :p
      up_old = false
      up_new = false
 %>
-  <tr <%= 'class="hook"' unless @old[i] == @new[i]%>>
+  <tr <%= 'name="hook"' unless @old[i] == @new[i]%>>
     <td <%= @old[i] ? "id=\"oldcode#{old_lineno}\"" : "" %>  class="<%= line_class(@old[i], @new[i], true) %>">  <% unless @old[i].nil? %><%= @old[i] == @new[i] ? sprintf("%#{length}s", old_lineno) : "<u>"+sprintf("%#{length}s", old_lineno) + "</u>" %><% up_old = true %><% end %> <%=h fold @old[i].to_s, 73 %></td>
     <td <%= @new[i] ? "id=\"newcode#{new_lineno}\"" : "" %> class="<%= line_class(@old[i], @new[i], false) %>">  <% unless @new[i].nil? %><%= @old[i] == @new[i] ? sprintf("%#{length}s", new_lineno) : "<u>"+sprintf("%#{length}s", new_lineno) + "</u>" %><% up_new = true %><% end %> <%=h fold @new[i].to_s, 73 %></td>
   </tr>

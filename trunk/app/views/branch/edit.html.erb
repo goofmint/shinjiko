@@ -1,4 +1,4 @@
-<h2>Create New Branch in Repository <%=h @branch.repository.name %></h2>
+<h2><%=h _("Create New Branch in Repository ")%><%=h @branch.repository.name %></h2>
 <% form_tag do %>
   <%= error_messages_for :branch %>
   <table>

@@ -40,7 +40,7 @@ module ApplicationHelper
     when minutes < 1
       _("less than a minute")
     when minutes < 50
-      n_("%{minute} minute", "%{minute} minutes", minutes) % { :minutes => minutes}
+      n_("%{minutes} minute", "%{minutes} minutes", minutes) % { :minutes => minutes}
     when minutes < 90
       "about one hour"
     when minutes < 1080

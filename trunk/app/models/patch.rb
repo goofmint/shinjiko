@@ -13,6 +13,7 @@ class Patch < ActiveRecord::Base
     text = self.text.split(/\r\n|\r|\n/)
     text.each { |l|
       lineno += 1
+      next if l == ""
       if in_prelude
         if l =~ /^\+{3}/
           in_prelude = false
@@ -23,7 +24,8 @@ class Patch < ActiveRecord::Base
       # match pattern
       # @@ -28,29 +34,28 @@
       # @@ -28 +34 @@
-      if l =~ /@@\s+\-(\d+)(,(\d+)|)\s+\+(\d+)(,(\d+)|)\s+@@/
+      if l =~ /^@@\s+\-(\d+)(,(\d+)|)\s+\+(\d+)(,(\d+)|)\s+@@/
+        logger.debug "Head: #{l}"
         if raw_chunk.length > 0
           old_chunk = []
           new_chunk = []
@@ -56,7 +58,7 @@ class Patch < ActiveRecord::Base
         elsif [" ", "-", "+"].index tag
           raw_chunk << [tag, rest]
         else
-          #logger.debug("%s:%d: indecypherable input: %r" % [name, lineno, __LINE__])
+          logger.debug("%s:%d: indecypherable input: %d" % [name, lineno, __LINE__])
           break if chunks || raw_chunk
           return nil
         end
@@ -73,11 +75,8 @@ class Patch < ActiveRecord::Base
       old_i, old_j = old_range
       new_i, new_j = new_range
       if old_chunk.length != old_j - old_i || new_chunk.length != new_j - new_i
-        # logger.debug("Length:#{old_chunk.length} #{old_j} #{old_i}")
+        #logger.debug("Length:#{old_chunk.length} #{old_j} #{old_i}")
         logger.debug("%s:%s:1: previous chunk has incorrect length" % [name, lineno])
-        raw_chunk.each { |tag, rest|
-          logger.debug("#{tag} #{rest}")
-        }
         return nil
       end
       chunks << [old_range, new_range, raw_chunk]
@@ -89,7 +88,7 @@ class Patch < ActiveRecord::Base
   
   def application_patch(chunks = nil)
     chunks = self.parse unless chunks
-    # logger.debug "chunk #{chunks}"
+    return nil unless chunks
     logger.debug "chunk"
     chunks.each {|old_range, new_range, chunk|
       chunk.each { |c|
@@ -101,8 +100,6 @@ class Patch < ActiveRecord::Base
     return nil unless content
     old_file = content.split(/\r\n|\r|\n/)
     new_file = content.split(/\r\n|\r|\n/)
-    # old_file << "" if old_file[-1] != ""
-    # new_file << "" if new_file[-1] != ""
     diff_line_count = 0
     chunks.each {|old_range, new_range, chunk|
       count = 0
@@ -110,15 +107,6 @@ class Patch < ActiveRecord::Base
       old_range[1] += diff_line_count
       new_range[1] += diff_line_count
       logger.debug "#{new_range[0]} to #{(new_range[0] + chunk.size)}"
-      chunk.each { |c|
-        logger.debug "diff #{c[0]} #{c[1]}"
-      }
-      t = 0
-      new_file.each { |l|
-        t += 1
-        logger.debug "new #{t} #{l}"
-      }
-      
       for i in new_range[0]..(new_range[0] + chunk.size)
         break unless chunk[count]
         if chunk[count][0] == "-"

@@ -1,6 +1,6 @@
 <h2><%=h _("Issue: ")%><%=h @issue.subject %> </h2>
 
-<% if (comment_count = self.current_user.comments.count(:conditions => ['comments.issue_id = ? and draft = 1', @issue.id])) && comment_count != 0 %>
+<% if logged_in? && (comment_count = self.current_user.comments.count(:conditions => ['comments.issue_id = ? and draft = 1', @issue.id])) && comment_count != 0 %>
 <div class="error">You have <b><%=h comment_count %> draft</b>
  comments.
 Drafts are not viewable by others; use

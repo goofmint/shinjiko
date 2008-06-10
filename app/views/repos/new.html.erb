@@ -1,14 +1,14 @@
-<h2>Create New Repository</h2>
+<h2><%=h _("Create New Repository")%></h2>
 
 <% form_tag(:controller => :repos, :action => :new) do %>
 
 <table>
 <tr><th>
-    <label for="id_name">Name:</label>
+    <label for="id_name"><%=h _("Name:")%></label>
 </th><td>
 <%= text_field :repository, :name %>
 </td></tr>
-<tr><th><label for="id_url">Url:</label></th><td>
+<tr><th><label for="id_url"><%=h _("Url:")%></label></th><td>
 <%= text_field :repository, :uri %>
 </td></tr>
 <tr><td>

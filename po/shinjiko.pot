@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Shinjiko 1.0.0\n"
-"POT-Creation-Date: 2008-06-06 14:39+0900\n"
+"POT-Creation-Date: 2008-06-10 16:43+0900\n"
 "PO-Revision-Date: 2008-06-04 22:54+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:15
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:16
 msgid "Invalid request"
 msgstr ""
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:21
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:28
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:22
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/account_controller.rb:29
 msgid "Message=Authorization failed"
 msgstr ""
 
@@ -31,16 +31,19 @@ msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:20
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:31
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:49
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:97
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:106
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:110
-msgid "Patch is not found."
+msgid "No patch exists with that id (%{patch})"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:44
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:82
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:83
 msgid "Invalid file type."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:49
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:98
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:107
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:111
+msgid "Patch is not found."
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:57
@@ -51,25 +54,25 @@ msgstr ""
 msgid "This patch is not valid."
 msgstr ""
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:86
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:87
 msgid "You have to login for comment."
 msgstr ""
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:115
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:116
 msgid "Comment is not found"
 msgstr ""
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:137
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:138
 msgid "Comment save failed."
 msgstr ""
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:162
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:172
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:177
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:163
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:173
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:178
 msgid "No issue exists with that id (%{issue})"
 msgstr ""
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:223
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/controllers/issue_controller.rb:224
 msgid "Patchset is not found"
 msgstr ""
 
@@ -90,8 +93,8 @@ msgid "less than a minute"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/helpers/application_helper.rb:43
-msgid "%{minute} minute"
-msgid_plural "%{minute} minutes"
+msgid "%{minutes} minute"
+msgid_plural "%{minutes} minutes"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -504,7 +507,7 @@ msgid "User|Login"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:-
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:26
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:27
 msgid "User|Email"
 msgstr ""
 
@@ -536,11 +539,15 @@ msgstr ""
 msgid "is invalid format. Only a-z, A-Z, 0-9, - and _"
 msgstr ""
 
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:24
-msgid "User|Password confirmation"
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:14
+msgid " does not appear to be a valid e-mail address"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:25
+msgid "User|Password confirmation"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/models/user.rb:26
 msgid "User|Password"
 msgstr ""
 
@@ -594,6 +601,30 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/_form.html.erb:3
+msgid "Repo:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/_form.html.erb:9
+msgid "Category:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/_form.html.erb:12
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/new.html.erb:7
+msgid "Name:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/_form.html.erb:15
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:23
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/new.html.erb:11
+msgid "Url:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/edit.html.erb:1
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/new.html.erb:1
+msgid "Create New Branch in Repository "
+msgstr ""
+
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/branch/edit.html.erb:7
 msgid "Update Branch"
 msgstr ""
@@ -618,26 +649,44 @@ msgid "Next &#187;"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:14
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:13
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:50
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:90
 msgid "Id"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:16
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:14
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:51
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:91
 msgid "Subject"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:17
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:15
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:52
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:92
 msgid "Owner"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:18
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:16
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:53
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:93
 msgid "Reviewers"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:19
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:18
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:55
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:95
 msgid "Comments"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/all.html.erb:20
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:19
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:56
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:96
 msgid "Drafts (mine)"
 msgstr ""
 
@@ -650,18 +699,95 @@ msgstr ""
 msgid "me"
 msgstr ""
 
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:35
+msgid "File: "
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:43
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:54
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:14
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:56
+msgid "Created:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:44
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:15
+msgid "Last updated:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:47
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:17
+msgid "SVN Base:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:48
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:17
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:19
+msgid "Reviewers:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:50
+msgid "Patch Set: "
+msgstr ""
+
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:70
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:75
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:164
 msgid "View unified diff"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:87
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:99
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:96
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:92
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:104
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:101
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:181
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:7
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:25
 msgid "Publish+Mail Comments"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:90
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:95
+msgid "Side by Side Diff"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:92
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:97
+msgid ""
+"Use n/p to move between diff chunks;N/P to move between comments.Double-"
+"click a line to add a draft in-line comment."
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:107
+msgid "OLD"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff.html.erb:107
+msgid "NEW"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:66
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:155
+msgid "&laquo; no previous file"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:72
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:161
+msgid "no next file &laquo;"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:100
+msgid "Draft comments are only viewable by you;"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:112
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:145
+msgid "LEFT"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:112
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/diff2.html.erb:145
+msgid "RIGHT"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/edit.html.erb:55
@@ -672,9 +798,71 @@ msgstr ""
 msgid "Delete Issue"
 msgstr ""
 
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:1
+msgid "Issues for me"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:5
+msgid "Issues Created by me"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:10
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:47
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:87
+msgid "(None)"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:20
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:57
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:97
+msgid "Last updated"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:43
+msgid "Issues Reviewable by me"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/index.html.erb:82
+msgid "Issues Closed Recently"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:1
+msgid "Create New Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:5
+msgid "Subject:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:8
+msgid "Description:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:11
+msgid "SVN base:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:14
+msgid "Base:"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:20
+msgid "Data:"
+msgstr ""
+
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:27
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/layouts/default.html.erb:41
 msgid "Create Issue"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:33
+msgid "Upload Utility"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/new.html.erb:35
+msgid ""
+"Tired of uploading files through this form? Download %{upload}, a simple "
+"utility that will invoke \"svn diff\" and upload the output for you."
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/patch.html.erb:47
@@ -690,24 +878,7 @@ msgid "Issue: "
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:14
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:56
-msgid "Created:"
-msgstr ""
-
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:14
 msgid "%{timeago} by %{user}"
-msgstr ""
-
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:15
-msgid "Last updated:"
-msgstr ""
-
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:17
-msgid "SVN Base:"
-msgstr ""
-
-#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:19
-msgid "Reviewers:"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/issue/view.html.erb:21
@@ -838,8 +1009,16 @@ msgstr ""
 msgid "Powered by Ruby on Rails"
 msgstr ""
 
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:1
+msgid "Repositories and Branches"
+msgstr ""
+
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:4
 msgid "Add Repository"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:8
+msgid "Repository: "
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:9
@@ -848,6 +1027,10 @@ msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/index.html.erb:11
 msgid "edit"
+msgstr ""
+
+#: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/new.html.erb:1
+msgid "Create New Repository"
 msgstr ""
 
 #: /Users/nakatsugawa/Documents/work/shinjiko/app/views/repos/new.html.erb:15

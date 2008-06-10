@@ -1,23 +1,23 @@
-<h2>Issues for me</h2>
+<h2><%=h _("Issues for me")%></h2>
 
 <table id="queues">
 
-<tr><td colspan="7"><h3>Issues Created by me</h3></td></tr>
+<tr><td colspan="7"><h3><%=h _("Issues Created by me")%></h3></td></tr>
 
 <% 
    issues = self.current_user.issues.find(:all, :order => 'updated_at desc')
    if issues.length == 0 %>
-<tr><td colspan="7"><span class="disabled">(None)</td></tr>
+<tr><td colspan="7"><span class="disabled"><%=h _("(None)")%></td></tr>
 <% else %>
 <tr align="left">
-  <th>Id</th>
-  <th>Subject</th>
-  <th>Owner</th>
-  <th>Reviewers</th>
+  <th><%=h _("Id")%></th>
+  <th><%=h _("Subject")%></th>
+  <th><%=h _("Owner")%></th>
+  <th><%=h _("Reviewers")%></th>
 
-  <th>Comments</th>
-  <th>Drafts (mine)</th>
-  <th>Last updated</th>
+  <th><%=h _("Comments")%></th>
+  <th><%=h _("Drafts (mine)")%></th>
+  <th><%=h _("Last updated")%></th>
 </tr>
 
 <% issues.each {|i| %>
@@ -40,21 +40,21 @@
 <% } %>
 <% end %>
 
-<tr><td colspan="7"><h3>Issues Reviewable by me</h3></td></tr>
+<tr><td colspan="7"><h3><%=h _("Issues Reviewable by me")%></h3></td></tr>
 <% 
    issues = self.current_user.reviews.find(:all, :conditions => ['closed = 0'], :order => 'updated_at desc')
    if issues.length == 0 %>
-<tr><td colspan="7"><span class="disabled">(None)</td></tr>
+<tr><td colspan="7"><span class="disabled"><%=h _("(None)")%></td></tr>
 <% else %>
 <tr align="left">
-  <th>Id</th>
-  <th>Subject</th>
-  <th>Owner</th>
-  <th>Reviewers</th>
+  <th><%=h _("Id")%></th>
+  <th><%=h _("Subject")%></th>
+  <th><%=h _("Owner")%></th>
+  <th><%=h _("Reviewers")%></th>
 
-  <th>Comments</th>
-  <th>Drafts (mine)</th>
-  <th>Last updated</th>
+  <th><%=h _("Comments")%></th>
+  <th><%=h _("Drafts (mine)")%></th>
+  <th><%=h _("Last updated")%></th>
 </tr>
 
 <% issues.each {|i| %>
@@ -79,22 +79,22 @@
 <% } %>
 <% end %>
 
-<tr><td colspan="7"><h3>Issues Closed Recently</h3></td></tr>
+<tr><td colspan="7"><h3><%=h _("Issues Closed Recently")%></h3></td></tr>
 
 <% 
    issues = self.current_user.reviews.find(:all, :conditions => ['closed = 1'], :order => 'updated_at desc')
    if issues.length == 0 %>
-<tr><td colspan="7"><span class="disabled">(None)</td></tr>
+<tr><td colspan="7"><span class="disabled"><%=h _("(None)")%></td></tr>
 <% else %>
 <tr align="left">
-  <th>Id</th>
-  <th>Subject</th>
-  <th>Owner</th>
-  <th>Reviewers</th>
+  <th><%=h _("Id")%></th>
+  <th><%=h _("Subject")%></th>
+  <th><%=h _("Owner")%></th>
+  <th><%=h _("Reviewers")%></th>
 
-  <th>Comments</th>
-  <th>Drafts (mine)</th>
-  <th>Last updated</th>
+  <th><%=h _("Comments")%></th>
+  <th><%=h _("Drafts (mine)")%></th>
+  <th><%=h _("Last updated")%></th>
 </tr>
 
 <% issues.each {|i| %>

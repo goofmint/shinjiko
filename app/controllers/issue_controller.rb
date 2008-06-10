@@ -2,7 +2,7 @@ require 'diff/lcs'
 require 'diff/lcs/hunk'
 
 class IssueController < ApplicationController
-  before_filter :login_required, :except => [:all]
+  before_filter :login_required, :except => [:all, :view, :diff, :diff2, :download]
   layout 'default'
   
   def index
@@ -17,7 +17,7 @@ class IssueController < ApplicationController
   
   def patch
     @patch    = Patch.find :first, :conditions => ['patches.id = ?', params[:pid]], :include => [:patchset, :issue]
-    return render(:status => 404, :text => _("Patch is not found.")) unless @patch
+    return render (:status => 404, :text => _("No patch exists with that id (%{patch})") % { :patch => params[:pid]}) unless @patch
     # next and previous
     p_and_n
     
@@ -28,7 +28,7 @@ class IssueController < ApplicationController
   
   def diff
     @patch    = Patch.find :first, :conditions => ['patches.id = ?', params[:pid]], :include => [:patchset, :issue]
-    return render(:status => 404, :text => _("Patch is not found.")) unless @patch
+    return render (:status => 404, :text => _("No patch exists with that id (%{patch})") % { :patch => params[:pid]}) unless @patch
     p_and_n
     @issue = @patch.issue
     @patchset = @patch.patchset
@@ -64,6 +64,7 @@ class IssueController < ApplicationController
     difference += "+++ #{@patch.filename}\n"
     new.delete nil
     old.delete nil
+    
     difference += diff_as_string old, new
     @patch.content = old.join "\n"
     @patch.text = difference
@@ -213,7 +214,7 @@ class IssueController < ApplicationController
     }
     return render unless @message.save
     if @message.sendmail == 1
-      PublishComment.deliver_sendmail(:to => 'admin@moongift.jp', :bcc => @issue.reviewers_email_address, :messages => @message.message)
+      PublishComment.deliver_sendmail(:to => @issue.user.email, :bcc => @issue.reviewers_email_address, :messages => @message.message)
     end
     redirect_to :controller => :issue, :action => :view, :id => @issue.id
   end
@@ -260,7 +261,7 @@ class IssueController < ApplicationController
     end
     
     #Handle the last remaining hunk
-    output << oldhunk.diff(format)
+    output << "\n" + oldhunk.diff(format)
   end
   
 end

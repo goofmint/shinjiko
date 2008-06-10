@@ -63,13 +63,13 @@ login_warned = false;
 <% if @p_patch %>
   <%= link_to "&laquo; #{@p_patch.filename}", :controller => :issue, :action => :diff, :id => @issue.id, :psid => @patchset.id, :pid => @p_patch.id %> ('k')
 <% else %>
-<span class="disabled">&laquo; no previous file</span>
+<span class="disabled"><%= _("&laquo; no previous file")%></span>
 <% end %>
 |
 <% if @n_patch %>
   <%= link_to "#{@n_patch.filename} &raquo;", :controller => :issue, :action => :diff, :id => @issue.id, :psid => @patchset.id, :pid => @n_patch.id %> ('j')
 <% else %>
-<span class="disabled">no next file &laquo;</span>
+<span class="disabled"><%= _("no next file &laquo;")%></span>
 <% end %>
 |
 <%= link_to _("View unified diff"), :controller => :issue, :action => :patch, :id => @issue.id, :psid => @patchset.id, :pid => @patch.id %>
@@ -92,15 +92,12 @@ Toggle Intra-line Diffs</a> ('i')
 <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :publish, :id => @issue.id}, :class => "novisit" %>
 </p>
 
-<h3>Side by Side Diff</h3>
+<h3><%=h _("Side by Side Diff")%></h3>
 
-<p><i>Use n/p to move between diff chunks;
-N/P to move between comments.
-
-Double-click a line to add a draft in-line comment.
+<p><i><%=h _("Use n/p to move between diff chunks;N/P to move between comments.Double-click a line to add a draft in-line comment.")%>
 <br>
 <% if logged_in? && Comment.count(:conditions => ['user_id = ? and draft = 1', self.current_user.id]) > 0 %>
-<span style="color:red">Draft comments are only viewable by you;</span>
+<span style="color:red"><%=h _("Draft comments are only viewable by you;")%></span>
 use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :publish, :id => @issue.id}, :class => "novisit" %> to let others view them.
 <% end %>
 </i></p>
@@ -112,7 +109,7 @@ use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :p
 <table border="0" cellpadding="0" cellspacing="0" id="thecode"
        ondblclick="M_handleTableDblClick(event)">
 
-<tr><th>LEFT</th><th>RIGHT</th></tr>
+<tr><th><%=h _("LEFT")%></th><th><%=h _("RIGHT")%></th></tr>
 
 <% 
    old_lineno = 1
@@ -145,25 +142,28 @@ use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :p
   <% new_lineno += 1 if up_new %>
   <% } %>
 
-<tr><th>LEFT</th><th>RIGHT</th></tr>
+<tr><th><%=h _("LEFT")%></th><th><%=h _("RIGHT")%></th></tr>
 
 </table>
 
 </div>
 
 <p>
-
-<span class="disabled">&laquo; no previous file</span>
+<% if @p_patch %>
+  <%= link_to "&laquo; #{@p_patch.filename}", :controller => :issue, :action => :diff, :id => @issue.id, :psid => @patchset.id, :pid => @p_patch.id %> ('k')
+<% else %>
+<span class="disabled"><%= _("&laquo; no previous file")%></span>
+<% end %>
+|
+<% if @n_patch %>
+  <%= link_to "#{@n_patch.filename} &raquo;", :controller => :issue, :action => :diff, :id => @issue.id, :psid => @patchset.id, :pid => @n_patch.id %> ('j')
+<% else %>
+<span class="disabled"><%= _("no next file &laquo;")%></span>
+<% end %>
+|
+<%= link_to _("View unified diff"), :controller => :issue, :action => :patch, :id => @issue.id, :psid => @patchset.id, :pid => @patch.id %>
 |
 
-
-<a id="nextFile"
-   href="/8/diff/56/58">
-doc/README_FOR_APP &raquo;</a> ('j')
-|
-<a href="/8/patch/56/57">
-View unified diff</a>
-|
 <a href="javascript:if (intraLineDiff) intraLineDiff.toggle()">
 Toggle Intra-line Diffs</a> ('i')
 |
@@ -171,14 +171,14 @@ Toggle Intra-line Diffs</a> ('i')
 |
 <a href="javascript:M_collapseAllInlineComments()">Collapse Comments</a> ('c')
 |
-
-<a href="javascript:M_toggleAllInlineComments()">
-Toggle Comments</a> ('s')
+<a id="show-all-inline"
+   style="display:none"
+   href="javascript:M_showAllInlineComments()">Show Comments</a>
+<a id="hide-all-inline"
+   href="javascript:M_hideAllInlineComments()">Hide Comments</a> ('s')
 
 |
-<a class="novisit" href="/8/publish">Publish+Mail
-Comments</a>
-
+<%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :publish, :id => @issue.id}, :class => "novisit" %>
 </p>
 
 </script>

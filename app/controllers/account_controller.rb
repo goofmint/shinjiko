@@ -3,7 +3,8 @@ class AccountController < ApplicationController
   layout 'default'
   # say something nice, you goof!  something sweet.
   def index
-    redirect_to(:action => 'signup') unless logged_in? || User.count > 0
+    return redirect_to(:action => 'signup') unless logged_in? || User.count > 0
+    redirect_to :controller => :issue, :action => :index
   end
   
   def lang

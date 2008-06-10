@@ -133,7 +133,8 @@ class AbstractRpcServer(object):
     """
     req = self._CreateRequest(
         # url="https://www.google.com/accounts/ClientLogin",
-        url="http://localhost/account/api_login",
+        url="http://issues.moongift.jp/account/api_login",
+        # url="http://localhost/account/api_login",
         data=urllib.urlencode({
             "Email": email,
             "Passwd": password,

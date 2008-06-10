@@ -114,13 +114,14 @@ use <%= link_to _("Publish+Mail Comments"),{:controller => :issue, :action => :p
 <% 
    old_lineno = 1
    new_lineno = 1
+   length = [@new.length.to_s.split("").size, @old.length.to_s.split("").size].max
    [@new.length, @old.length].max.times {|i|
      up_old = false
      up_new = false
 %>
   <tr <%= 'class="hook"' unless @old[i] == @new[i]%>>
-    <td <%= @old[i] ? "id=\"oldcode#{old_lineno}\"" : "" %>  class="<%= line_class(@old[i], @new[i], true) %>">  <% unless @old[i].nil? %><%= @old[i] == @new[i] ? old_lineno : "<u>#{old_lineno}</u>" %><% up_old = true %><% end %> <%=h fold @old[i].to_s, 73 %></td>
-    <td <%= @new[i] ? "id=\"newcode#{new_lineno}\"" : "" %> class="<%= line_class(@old[i], @new[i], false) %>">  <% unless @new[i].nil? %><%= @old[i] == @new[i] ? new_lineno : "<u>#{new_lineno}</u>" %><% up_new = true %><% end %> <%=h fold @new[i].to_s, 73 %></td>
+    <td <%= @old[i] ? "id=\"oldcode#{old_lineno}\"" : "" %>  class="<%= line_class(@old[i], @new[i], true) %>">  <% unless @old[i].nil? %><%= @old[i] == @new[i] ? sprintf("%#{length}s", old_lineno) : "<u>"+sprintf("%#{length}s", old_lineno) + "</u>" %><% up_old = true %><% end %> <%=h fold @old[i].to_s, 73 %></td>
+    <td <%= @new[i] ? "id=\"newcode#{new_lineno}\"" : "" %> class="<%= line_class(@old[i], @new[i], false) %>">  <% unless @new[i].nil? %><%= @old[i] == @new[i] ? sprintf("%#{length}s", new_lineno) : "<u>"+sprintf("%#{length}s", new_lineno) + "</u>" %><% up_new = true %><% end %> <%=h fold @new[i].to_s, 73 %></td>
   </tr>
   <tr class="inline-comments">
     <td <%= up_old ? "id=\"old-line-#{old_lineno}\"" : "" %>>

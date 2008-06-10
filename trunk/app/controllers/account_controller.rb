@@ -12,6 +12,18 @@ class AccountController < ApplicationController
     redirect_to :back
   end
   
+  def settings
+    return redirect_to(:controller => :account, :action => :signup) unless logged_in?
+    @user = self.current_user
+    return render unless request.post?
+    @user.attributes = params[:user]
+    @user.email = self.current_user.email if params[:user][:email] == ""
+    @user.login = self.current_user.login
+    return render unless @user.save
+    flash[:notice] = _("Your settings updated successful.")
+    redirect_to :controller => :issue, :action => :index
+  end
+  
   def api_login
     return render(:status => 401, :text => _('Invalid request')) unless request.post?
     self.current_user = User.authenticate(params[:Email], params[:Passwd])

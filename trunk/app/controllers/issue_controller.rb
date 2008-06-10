@@ -227,6 +227,7 @@ class IssueController < ApplicationController
   end
   
   private
+  # Get to previous patch and next patch.
   def p_and_n
     @p_patch  = Patch.find :first, :conditions => ['patches.id < ? and issue_id = ? and patchset_id = ?', params[:pid], params[:id], params[:psid]], :order => 'patches.id'
     @n_patch  = Patch.find :first, :conditions => ['patches.id > ? and issue_id = ? and patchset_id = ?', params[:pid], params[:id], params[:psid]], :order => 'patches.id'

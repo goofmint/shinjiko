@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
-  validates_format_of       :login, :with => /^[a-zA-Z0-9-_]*$/, :message => _("is invalid format. Only a-z, A-Z, 0-9, - and _")
+  validates_format_of       :login, :with => /^[a-zA-Z0-9\-_]*$/, :message => _("is invalid format. Only a-z, A-Z, 0-9, - and _")
   validates_email_format_of :email, :message => _(' does not appear to be a valid e-mail address')
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password

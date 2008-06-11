@@ -1,0 +1,5 @@
+development:
+  google_analytics: 
+
+production:
+  google_analytics: UA-50568-10

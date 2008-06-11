@@ -55,6 +55,6 @@ module ApplicationHelper
   end
   
   def trans(text)
-    text.gsub(/(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/, "<a href=\"#{'\\1'}\">#{'\\1'}</a>")
+    h(text).gsub(/(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/, "<a href=\"#{'\\1'}\">#{'\\1'}</a>")
   end
 end

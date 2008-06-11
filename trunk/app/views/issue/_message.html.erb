@@ -11,7 +11,7 @@
 File <%=h delta ? m.patch_left.filename : m.patch.filename %> (<%=h m.side == 'a' ? 'left' : 'right' %>):<% end %>
   <% code = (m.side == 'a') ? 'oldcode' : 'newcode' %>
 <% unless delta %><%=h url_for(:controller => :issue, :action => :diff, :id => m.issue_id, :psid => m.patchset_id, :pid => m.patch_id, :anchor => "#{code}#{m.line}", :only_path => false) %><% else %><%=h url_for(:controller => :issue, :action => :diff2, :id => m.issue_id, :psid => "#{m.patchset_right_id}:#{m.patchset_left_id}", :pid => m.patch_right_id, :anchor => "#{code}#{m.line}", :only_path => false) %><% end %>
-Line <%=h m.line %>: <%=h m.code %>
+Line <%=h m.line %>: <%= m.code %>
 <%=h m.text %><% old_patch_id = current_id
      old_side     = m.side
   %><% } %>

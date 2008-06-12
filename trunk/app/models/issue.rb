@@ -62,7 +62,9 @@ class Issue < ActiveRecord::Base
   end
 
   def repo_url
-    self.base && self.base != "" ? self.base : self.patchsets[0].branch.uri
+    return self.base if self.base != ""
+    return self.patchsets[0].branch.uri if self.patchsets[0] && self.patchsets[0].branch
+    return ""
   end
   
   def reviewers_email_address

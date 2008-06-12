@@ -63,7 +63,7 @@ class Issue < ActiveRecord::Base
 
   def repo_url
     return self.base if self.base != ""
-    return self.patchsets[0].branch.uri if self.patchsets[0] && self.patchsets[0].branch
+    return self.patchsets.first.branch.uri if self.patchsets.first && self.patchsets.first.branch
     return ""
   end
   

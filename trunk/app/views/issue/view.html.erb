@@ -25,7 +25,9 @@ Drafts are not viewable by others; use
   <%= link_to _("Publish+Mail Comments"), {:controller => :issue, :action => :publish, :id => @issue.id}, :class => 'novisit' %>
   
   |
-  <strong><%= link_to _("Start Review"), {:controller => :issue, :action => :diff, :id => @issue.id, :psid => @issue.patchsets.first.id, :pid => @issue.patchsets.first.patches.first.id}, :class => 'novisit' %></strong>
+  <% if @issue.patchsets.first %>
+    <strong><%= link_to _("Start Review"), {:controller => :issue, :action => :diff, :id => @issue.id, :psid => @issue.patchsets.first.id, :pid => @issue.patchsets.first.patches.first.id}, :class => 'novisit' %></strong>
+  <% end %>
 </div>
 </div>
 

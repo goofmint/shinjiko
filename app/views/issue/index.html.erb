@@ -21,7 +21,7 @@
 </tr>
 
 <% issues.each {|i| %>
-  <% draft = i.comments.count(:conditions => ['draft = 1']) %>
+  <% draft = i.comments.count(:conditions => ['draft = 1 and comments.user_id = ?', (logged_in? ? 0 : self.current_user.id)]) %>
   <tr <%= draft > 0 ? 'style="color:red"' : '' %>>
     <td align="right"><div class="subject"><%= i.id %></td>
     <td><div class="subject">
@@ -58,7 +58,7 @@
 </tr>
 
 <% issues.each {|i| %>
-  <% draft = i.comments.count(:conditions => ['draft = 1']) %>
+  <% draft = i.comments.count(:conditions => ['draft = 1 and comments.user_id = ?', (logged_in? ? 0 : self.current_user.id)]) %>
   <tr <%= draft > 0 ? 'style="color:red"' : '' %>>
     <td align="right"><div class="subject"><%= i.id %></td>
     <td><div class="subject">
@@ -104,7 +104,7 @@
     <td><div class="subject">
 	<%= link_to i.subject,{:controller => :issue, :action => :view, :id => i.id}, :class => "noul" %>
     </div></td>
-    <td><div class="users"><%= (logged_in? && i.user_id == self.current_user.id) ? "me" : i.user.login %></div></td>
+    <td><div class="users"><%= (logged_in? && i.user_id == self.current_user.id) ? _("me") : i.user.login %></div></td>
     <td><div class="users">
 	<%=h i.reviewer_string %>
     </div></td>

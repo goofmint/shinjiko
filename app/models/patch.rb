@@ -160,6 +160,23 @@ class Patch < ActiveRecord::Base
       empty_line_old = []
       empty_line_new = []
     }
+    
+    # Same logic
+    if empty_line_new.size == empty_line_old.size
+      really_erase_line_new += empty_line_new
+      really_erase_line_old += empty_line_old
+    elsif empty_line_new.size > empty_line_old.size
+      empty_line_old.size.times {|i|
+        really_erase_line_new << empty_line_new[i]
+      }
+      really_erase_line_old += empty_line_old
+    else
+      empty_line_new.size.times {|i|
+        really_erase_line_old << empty_line_old[i]
+      }
+      really_erase_line_new += empty_line_new
+    end
+    
     really_erase_line_new.reverse.each { |l|
       new_file.delete_at l
     }

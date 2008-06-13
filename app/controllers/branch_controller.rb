@@ -16,8 +16,9 @@ class BranchController < ApplicationController
   
   def edit
     @branch = Branch.find :first, :conditions => ['branches.id = ?', params[:id]], :include => [:repository]
+    @repository = @branch.repository
     return render unless request.post?
-    return render unless @branch.update_attributes(params[:branch])
+    return render unless @branch.update_attributes(params[:branch]) && @repository.update_attributes(params[:repository])
     return redirect_to(:controller => :repos)
   end
 end

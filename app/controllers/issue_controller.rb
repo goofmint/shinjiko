@@ -158,6 +158,19 @@ class IssueController < ApplicationController
     redirect_to :controller => :issue, :action => :view, :id => @issue.id
   end
   
+  def add
+    @issue = Issue.find :first, :conditions => ['issues.id = ?', params[:id]]
+    return render (:status => 404, :text => _("No issue exists with that id (%{issue})") % { :issue => params[:id]}) unless @issue
+    data = params[:patchset][:data] ? params[:patchset][:data].read : nil
+    @patchset = Patchset.new params[:patchset]
+    @patchset.issue = @issue
+    @patchset.data  = data
+    unless @patchset.save
+      return render
+    end
+    redirect_to :controller => :issue, :action => :view, :id => @issue.id
+  end
+  
   def edit
     @issue = Issue.find :first, :conditions => ['issues.id = ?', params[:id]]
     return render (:status => 404, :text => _("No issue exists with that id (%{issue})") % { :issue => params[:id]}) unless @issue

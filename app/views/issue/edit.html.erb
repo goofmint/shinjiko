@@ -43,6 +43,17 @@
       </td>
     </tr>
     <tr>
+      <td colspan="2">
+	<%=h _("There are require, if you use no-access anonymous subversion repository")%>
+      </td>
+    </tr>
+    <tr><th><label for="id_username"><%=h _("Subversion username:")%></label></th><td>
+	<%= text_field :patchset, :username %>
+    </td></tr>
+    <tr><th><label for="id_password"><%=h _("Subversion password:")%></label></th><td>
+	<%= password_field :patchset, :password_base %>
+    </td></tr>
+    <tr>
       <th>
 	<label for="id_closed"><%=h _("Closed:")%></label>
       </th>

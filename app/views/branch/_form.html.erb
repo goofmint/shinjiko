@@ -15,3 +15,11 @@
     <tr><th><label for="id_url"><%=h _("Url:")%></label></th><td>
 	<%= text_field :branch, :uri %>
     </td></tr>
+   <tr>
+     <th><label for="id_username"><%=h _("Subversion username:")%></label></th><td>
+       <%= text_field :repository, :username %>
+   </td></tr>
+   <tr>
+    <th><label for="id_password"><%=h _("Subversion password:")%></label></th><td>
+       <%= password_field :repository, :password_base %>
+   </td></tr>

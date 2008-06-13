@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 12) do
 
   create_table "apis", :force => true do |t|
     t.string   "session"
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(:version => 11) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "username"
+    t.string   "password"
   end
 
   create_table "repositories", :force => true do |t|
@@ -117,6 +119,11 @@ ActiveRecord::Schema.define(:version => 11) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "username"
+    t.string   "password"
+  end
+
+  create_table "tests", :force => true do |t|
   end
 
   create_table "users", :force => true do |t|

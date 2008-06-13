@@ -2,7 +2,7 @@ require 'net/http'
 require 'net/https'
 
 class Patchset < ActiveRecord::Base
-  before_save :parsepatch
+  before_save :parsepatch, :move_password_base
   has_many :patches
   has_many :childs, :class_name => 'Patch', :foreign_key => :parent_id
   belongs_to :issue
@@ -64,5 +64,17 @@ class Patchset < ActiveRecord::Base
     end
     logger.debug "Patches? #{self.patches}"
   end
+
+  def password_base
+    @password_base
+  end
   
+  def password_base=(base)
+    @password_base = base
+  end
+  
+  private
+  def move_password_base
+    self.password = @password_base if @password_base != ""
+  end
 end
